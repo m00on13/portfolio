@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useRef } from 'react';
+import './index.css';
+import TechSection from './components/Tech/TechSection';
+import ArtSection from './components/Art/ArtSection';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [splitPosition, setSplitPosition] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const x = ((clientX - rect.left) / rect.width) * 100;
+      setSplitPosition(Math.max(10, Math.min(90, x)));
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div 
+      className="portfolio-container" 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onTouchMove={handleMouseMove}
+    >
+      <div 
+        className="split-section tech-section" 
+        style={{ width: `${splitPosition}%` }}
+      >
+        <TechSection />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+
+      <div 
+        className="split-section art-section" 
+        style={{ width: `${100 - splitPosition}%` }}
+      >
+        <ArtSection />
+      </div>
+
+      <div className="handle" style={{ left: `${splitPosition}%` }} />
+
+      <div className="name-overlay">
+        <h1 className="name-text">
+          Mansi<br />Patel
+        </h1>
+        <p style={{ marginTop: '20px', fontSize: '1.2rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8 }}>
+          AI Explorer / Digital Artist
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
