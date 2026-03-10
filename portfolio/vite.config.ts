@@ -10,4 +10,10 @@ export default defineConfig({
       },
     }),
   ],
+  cacheDir: '.norton_ignored',
+  optimizeDeps: {
+    esbuildOptions: {
+      minify: false,
+    },
+  },
 })
