@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import './index.css';
 import TechSection from './components/Tech/TechSection';
 import ArtSection from './components/Art/ArtSection';
+import DetailsSection from './components/Details/DetailsSection';
 
 const App: React.FC = () => {
   const [splitPosition, setSplitPosition] = useState(50);
@@ -17,36 +18,43 @@ const App: React.FC = () => {
   };
 
   return (
-    <div 
-      className="portfolio-container" 
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleMouseMove}
+    <div
+      className="portfolio-container"
     >
-      <div 
-        className="split-section tech-section" 
-        style={{ width: `${splitPosition}%` }}
+      <section
+        className="hero-section"
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onTouchMove={handleMouseMove}
       >
-        <TechSection />
-      </div>
+        <div
+          className="split-section tech-section"
+          style={{ width: `${splitPosition}%` }}
+        >
+          <TechSection />
+        </div>
 
-      <div 
-        className="split-section art-section" 
-        style={{ width: `${100 - splitPosition}%` }}
-      >
-        <ArtSection />
-      </div>
+        <div
+          className="split-section art-section"
+          style={{ width: `${100 - splitPosition}%` }}
+        >
+          <ArtSection />
+        </div>
 
-      <div className="handle" style={{ left: `${splitPosition}%` }} />
 
-      <div className="name-overlay">
-        <h1 className="name-text">
-          Mansi<br />Patel
-        </h1>
-        <p style={{ marginTop: '20px', fontSize: '1.2rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8 }}>
-          AI Explorer / Digital Artist
-        </p>
-      </div>
+        <div className="handle" style={{ left: `${splitPosition}%` }} />
+
+        <div className="name-overlay">
+          <h1 className="name-text">
+            Mansi<br />Patel
+          </h1>
+          <p style={{ marginTop: '20px', fontSize: '1.2rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.8 }}>
+            AI Explorer / Digital Artist
+          </p>
+        </div>
+      </section>
+
+      <DetailsSection />
     </div>
   );
 };
