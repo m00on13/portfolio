@@ -1,4 +1,7 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import GitHubActivity from './GitHubCalendar';
 import './DetailsSection.css';
 
 const DetailsSection: React.FC = () => {
@@ -95,22 +98,54 @@ const DetailsSection: React.FC = () => {
                         </div>
                     </section>
 
-                    <section className="details-group">
+                    <section className="details-group blog-section">
                         <h2 className="section-title">Medium Blogs</h2>
-                        <div className="blog-list">
-                            {blogs.map((blog, i) => (
-                                <a key={i} href={blog.link} target="_blank" rel="noopener noreferrer" className="blog-item">
-                                    <div className="blog-info">
-                                        <h4>{blog.title}</h4>
-                                        <span>{blog.date}</span>
-                                    </div>
-                                    <span className="arrow">↗</span>
-                                </a>
-                            ))}
+                        <div className="carousel-container">
+                            <button className="carousel-nav prev" onClick={() => {
+                                const container = document.getElementById('blog-carousel');
+                                if (container) container.scrollBy({ left: -300, behavior: 'smooth' });
+                            }}>
+                                <ChevronLeft size={24} />
+                            </button>
+                            <div id="blog-carousel" className="blog-carousel">
+                                {blogs.map((blog, i) => (
+                                    <motion.a 
+                                        key={i} 
+                                        href={blog.link} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="blog-card"
+                                        whileHover={{ y: -5, scale: 1.02 }}
+                                        initial={{ opacity: 0, x: 50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.1 }}
+                                    >
+                                        <div className="blog-card-content">
+                                            <span className="blog-date">{blog.date}</span>
+                                            <h4>{blog.title}</h4>
+                                            <div className="blog-footer">
+                                                <span className="blog-platform">{blog.platform}</span>
+                                                <span className="arrow">↗</span>
+                                            </div>
+                                        </div>
+                                    </motion.a>
+                                ))}
+                            </div>
+                            <button className="carousel-nav next" onClick={() => {
+                                const container = document.getElementById('blog-carousel');
+                                if (container) container.scrollBy({ left: 300, behavior: 'smooth' });
+                            }}>
+                                <ChevronRight size={24} />
+                            </button>
                         </div>
                     </section>
                 </div>
             </div>
+            
+            <section className="details-group github-section">
+                <h2 className="section-title">Open Source Activity</h2>
+                <GitHubActivity username="mansi" />
+            </section>
         </div>
     );
 };
