@@ -1,0 +1,77 @@
+/* ─────────────────────────────────────
+   Hero Section
+   ───────────────────────────────────── */
+
+#hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100svh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Badge wrapper ── */
+.hero-badge-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* subtle float animation */
+  animation: badge-float 4s ease-in-out infinite;
+}
+
+/* ── The combined ID image ── */
+.hero-id {
+  height: 95svh; /* Enlarged so it takes up most of the vertical space */
+  max-height: 900px;
+  width: auto;
+  position: relative;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.10))
+          drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
+
+  /* fade-in on load */
+  animation: card-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─────────────────────────────────────
+   Animations
+   ───────────────────────────────────── */
+
+@keyframes badge-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─────────────────────────────────────
+   Responsive
+   ───────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero-id {
+    height: 85svh;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-id {
+    height: 75svh;
+  }
+}
