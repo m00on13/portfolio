@@ -1,0 +1,132 @@
+/* ─────────────────────────────────────
+   Hero & About Sequence
+   ───────────────────────────────────── */
+
+.hero-about-sequence {
+  width: 100%;
+  position: relative;
+  /* We don't hide overflow here because it might clip the pinned elements during scroll */
+}
+
+#hero {
+  display: flex;
+  align-items: center; /* center vertically */
+  justify-content: center;
+  height: 100svh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── About Content ── */
+.about-content {
+  position: absolute;
+  right: 15vw;
+  max-width: 400px;
+  opacity: 0; /* Hidden initially, GSAP will animate this */
+  /* Move it slightly right initially so GSAP can slide it to x: 0 */
+  transform: translateX(50px);
+  pointer-events: none; /* disable pointer events until visible */
+  z-index: 2;
+  color: var(--text);
+}
+
+.about-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.about-content p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+/* ── Badge wrapper ── */
+.hero-badge-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  /* GSAP will animate this, no CSS animations here! */
+}
+
+/* Inner wrapper for CSS float animation */
+.hero-badge-float {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: badge-float 4s ease-in-out infinite;
+}
+
+/* ── The combined ID image ── */
+.hero-id {
+  height: 95svh; /* Enlarged so it takes up most of the vertical space */
+  max-height: 900px;
+  width: auto;
+  position: relative;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.10))
+          drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
+
+  /* fade-in on load */
+  animation: card-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─────────────────────────────────────
+   Animations
+   ───────────────────────────────────── */
+
+@keyframes badge-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─────────────────────────────────────
+   Responsive
+   ───────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .about-content {
+    right: 10vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-id {
+    height: 85svh;
+  }
+  
+  .about-content {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%) translateY(20px);
+    bottom: 10vh;
+    width: 85vw;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-id {
+    height: 75svh;
+  }
+}
