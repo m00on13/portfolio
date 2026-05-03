@@ -1,0 +1,349 @@
+/* ─────────────────────────────────────────────
+   Work / Experience Section
+   Theme: #EFEFF0 bg · #2d2d2d text · Inter font
+   ───────────────────────────────────────────── */
+
+/* ── Section shell ── */
+.work-section {
+  width: 100%;
+  background: var(--bg);
+  padding: 120px 0 140px;
+}
+
+.work-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 60px);
+}
+
+/* ── Section label (// 02 — Experience) ── */
+.work-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.work-label-line {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--text-muted);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.work-label-text {
+  font-family: 'Special Elite', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Section heading ── */
+.work-heading {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 72px;
+}
+
+/* ── Jobs container ── */
+.work-jobs {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* ── Single job block ── */
+.work-job {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Job meta bar ── */
+.work-job-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(45, 45, 45, 0.1);
+}
+
+.work-job-meta-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.work-timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text);
+  margin-top: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(45, 45, 45, 0.1);
+}
+
+.work-job-role {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.work-job-company {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.work-job-meta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.work-job-period {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.work-job-location {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── Projects stack ── */
+.work-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Project card ── */
+.work-project-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(45, 45, 45, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.work-project-card:hover {
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.07);
+  border-color: rgba(45, 45, 45, 0.14);
+}
+
+/* ── Card header (clickable) ── */
+.work-project-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.18s ease;
+}
+
+.work-project-header:hover {
+  background: rgba(45, 45, 45, 0.025);
+}
+
+.work-project-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.work-project-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.work-project-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.work-project-client {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  display: none; /* shown on md+ */
+}
+
+/* ── Status badge ── */
+.work-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.work-status-badge::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.status-in-production {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.status-deployed {
+  background: rgba(99, 102, 241, 0.1);
+  color: #4f46e5;
+}
+
+.status-shipped {
+  background: rgba(245, 158, 11, 0.1);
+  color: #b45309;
+}
+
+/* ── Chevron ── */
+.work-chevron {
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.work-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ── Card body (collapsible) ── */
+.work-project-body {
+  display: none;
+  padding: 4px 20px 20px;
+  border-top: 1px solid rgba(45, 45, 45, 0.06);
+}
+
+.work-project-card.expanded .work-project-body {
+  display: block;
+}
+
+/* ── Outcomes list ── */
+.work-outcomes {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.work-outcomes li {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+.work-outcomes li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--text);
+  opacity: 0.4;
+  font-size: 0.75rem;
+  line-height: 1.9;
+}
+
+/* ── Stack pills ── */
+.work-stack-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.work-stack-pill {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid rgba(45, 45, 45, 0.12);
+}
+
+/* ─── Responsive ───────────────────────── */
+
+@media (min-width: 640px) {
+  .work-project-client {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .work-section {
+    padding: 80px 0 100px;
+  }
+
+  .work-heading {
+    margin-bottom: 48px;
+  }
+
+  .work-job-meta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .work-job-meta-right {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .work-project-header {
+    padding: 14px 16px;
+  }
+
+  .work-project-body {
+    padding: 4px 16px 16px;
+  }
+
+  .work-jobs {
+    gap: 48px;
+  }
+}

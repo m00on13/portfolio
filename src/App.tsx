@@ -1,5 +1,6 @@
 import './App.css'
 import { HeroAboutSequence } from './components/HeroAbout/HeroAboutSequence'
+import { WorkSection } from './components/Work/WorkSection'
 import SplashCursor from './components/SplashCursor/SplashCursor'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         COLOR_UPDATE_SPEED={7}
       />
       <HeroAboutSequence />
+      <WorkSection />
     </>
   )
 }
