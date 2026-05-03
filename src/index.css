@@ -7,10 +7,15 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --bg: #EFEFF0;
   --text: #2d2d2d;
   --text-muted: #6b6b6b;
+  --navbar-height: 64px;
 
   --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
 
@@ -35,4 +40,13 @@ body {
 #root {
   width: 100%;
   min-height: 100svh;
+}
+
+/* All named sections account for the fixed navbar on jump */
+#work,
+#projects,
+#skills,
+#education,
+#contact {
+  scroll-margin-top: var(--navbar-height);
 }

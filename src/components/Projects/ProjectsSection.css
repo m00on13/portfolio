@@ -1,0 +1,193 @@
+/* ── Projects Section ── */
+.projects-section {
+  width: 100%;
+  background: var(--bg);
+  padding: 120px 0 140px;
+  scroll-margin-top: 64px;
+}
+
+.projects-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 60px);
+}
+
+/* ── Shared label style (reused across sections) ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.section-label-line {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--text-muted);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.section-label-text {
+  font-family: 'Special Elite', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Section heading (shared) ── */
+.section-heading {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 56px;
+}
+
+/* ── Grid ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* ── Project card ── */
+.project-card {
+  background: #ffffff;
+  border: 1px solid rgba(45, 45, 45, 0.08);
+  border-radius: 18px;
+  padding: 26px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+.project-card:hover {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  border-color: rgba(45, 45, 45, 0.14);
+}
+
+/* Placeholder card */
+.project-card--placeholder {
+  border-style: dashed;
+  border-color: rgba(45, 45, 45, 0.15);
+  background: transparent;
+}
+.project-card--placeholder:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(45, 45, 45, 0.25);
+}
+
+/* ── Card top row ── */
+.project-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.project-tag {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.project-card-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.project-link {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: color 0.18s, background 0.18s;
+  text-decoration: none;
+}
+.project-link:hover {
+  color: var(--text);
+  background: rgba(45, 45, 45, 0.06);
+}
+
+/* ── Card content ── */
+.project-name {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.project-pitch {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.project-outcome {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text);
+  opacity: 0.7;
+  padding: 10px 14px;
+  background: rgba(45, 45, 45, 0.04);
+  border-left: 2px solid rgba(45, 45, 45, 0.15);
+  border-radius: 0 6px 6px 0;
+}
+
+/* ── Stack pills ── */
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.project-pill {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid rgba(45, 45, 45, 0.12);
+}
+
+.project-follow-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-top: auto;
+  transition: color 0.2s;
+}
+.project-follow-link:hover { color: var(--text); }
+
+/* ── Third card spans full width ── */
+.projects-grid > *:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .projects-section { padding: 80px 0 100px; }
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .projects-grid > *:nth-child(3) {
+    grid-column: auto;
+  }
+  .section-heading { margin-bottom: 40px; }
+}

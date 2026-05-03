@@ -1,7 +1,12 @@
 import './App.css'
+import { Navbar }           from './components/Navbar/Navbar'
 import { HeroAboutSequence } from './components/HeroAbout/HeroAboutSequence'
-import { WorkSection } from './components/Work/WorkSection'
-import SplashCursor from './components/SplashCursor/SplashCursor'
+import { WorkSection }       from './components/Work/WorkSection'
+import { ProjectsSection }   from './components/Projects/ProjectsSection'
+import { SkillsSection }     from './components/Skills/SkillsSection'
+import { EducationSection }  from './components/Education/EducationSection'
+import { ContactSection }    from './components/Contact/ContactSection'
+import SplashCursor          from './components/SplashCursor/SplashCursor'
 
 function App() {
   return (
@@ -17,8 +22,13 @@ function App() {
         SPLAT_FORCE={1500}
         COLOR_UPDATE_SPEED={7}
       />
+      <Navbar />
       <HeroAboutSequence />
       <WorkSection />
+      <ProjectsSection />
+      <SkillsSection />
+      <EducationSection />
+      <ContactSection />
     </>
   )
 }

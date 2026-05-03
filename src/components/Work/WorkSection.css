@@ -8,6 +8,7 @@
   width: 100%;
   background: var(--bg);
   padding: 120px 0 140px;
+  scroll-margin-top: 64px;
 }
 
 .work-inner {
