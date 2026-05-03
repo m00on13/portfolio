@@ -1,6 +1,8 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import qrImg from '../../assets/qr.png';
+import designImg from '../../assets/design.png';
 import './ContactSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -119,21 +121,11 @@ export const ContactSection = () => {
 
             {/* Front Face */}
             <div className="biz-card-face biz-card-front">
+              <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
               <div className="card-front-top">
                 <div className="card-heading-group">
                   <h2 className="card-slogan">Got something<br />brewing?</h2>
                   <p className="card-subtext">Let's connect.</p>
-                </div>
-                <div className="card-qr">
-                  <svg viewBox="0 0 100 100" fill="currentColor" width="60" height="60">
-                    <rect x="10" y="10" width="25" height="25" fill="none" stroke="currentColor" strokeWidth="4" />
-                    <rect x="15" y="15" width="15" height="15" />
-                    <rect x="65" y="10" width="25" height="25" fill="none" stroke="currentColor" strokeWidth="4" />
-                    <rect x="70" y="15" width="15" height="15" />
-                    <rect x="10" y="65" width="25" height="25" fill="none" stroke="currentColor" strokeWidth="4" />
-                    <rect x="15" y="70" width="15" height="15" />
-                    <path d="M45,10 h10 v10 h-10 z M45,25 h10 v15 h-10 z M10,45 h15 v10 h-15 z M30,45 h25 v10 h-25 z M65,45 h25 v10 h-25 z M45,60 h10 v15 h-10 z M65,65 h10 v10 h-10 z M80,65 h10 v25 h-10 z M65,80 h10 v10 h-10 z M45,85 h15 v5 h-15 z M10,95 h80 v5 h-80 z" />
-                  </svg>
                 </div>
               </div>
               <div className="card-front-bottom">
@@ -155,10 +147,15 @@ export const ContactSection = () => {
                 </div>
               </div>
               <div className="card-flip-hint">Click to flip ⟳</div>
+              
+              <div className="card-qr">
+                <img src={qrImg} alt="Contact QR Code" className="qr-image" />
+              </div>
             </div>
 
             {/* Back Face */}
             <div className="biz-card-face biz-card-back">
+              <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
               <div className="card-back-header">
                 <h3>Send a message</h3>
               </div>
