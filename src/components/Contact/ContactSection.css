@@ -1,21 +1,27 @@
-/* ── Contact Section — Dark Break ── */
+/* ── Contact Section ── */
 .contact-section {
   width: 100%;
-  background: #1a1a1a;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  scroll-margin-top: 64px;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 20px 40px;
+  position: relative;
+  overflow: hidden;
+  scroll-margin-top: var(--navbar-height);
 }
 
-.contact-inner {
+.contact-container {
   max-width: 900px;
-  margin: 0 auto;
   width: 100%;
-  padding: 130px clamp(24px, 5vw, 60px) 80px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: auto; /* Push footer down */
 }
 
 /* ── Label ── */
@@ -23,156 +29,314 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 36px;
+  align-self: flex-start;
 }
 .contact-label-line {
-  display: block;
   width: 36px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.25);
-  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.2);
 }
 .contact-label-text {
   font-family: 'Special Elite', serif;
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.5);
 }
 
-/* ── Heading ── */
-.contact-heading {
-  font-size: clamp(2.5rem, 7vw, 4.5rem);
+/* ── 3D Scene ── */
+.biz-card-scene {
+  width: 100%;
+  max-width: 750px;
+  aspect-ratio: 1.7 / 1;
+  perspective: 2000px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.biz-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.06), 0 12px 24px rgba(0,0,0,0.04);
+  border-radius: 16px;
+}
+
+.biz-card-scene.is-flipped .biz-card-inner {
+  transform: rotateY(180deg);
+}
+
+.biz-card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  background: #ffffff; /* White card */
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 48px;
+}
+
+/* ── Front Face ── */
+.biz-card-front {
+  justify-content: space-between;
+}
+
+.card-front-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-heading-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-slogan {
+  font-size: clamp(2rem, 4.5vw, 4rem);
   font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  color: #f5f5f5;
-  margin-bottom: 36px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #111;
+  font-family: 'Playfair Display', serif; 
 }
 
-/* ── Availability badge ── */
-.contact-availability {
+.card-subtext {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--text-muted);
+  font-family: 'Playfair Display', serif;
+}
+
+.card-qr {
+  color: #111;
+  opacity: 0.9;
+}
+
+.card-front-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding-top: 24px;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-name {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+.card-role {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.card-links {
+  display: flex;
+  gap: 12px;
+}
+.card-social {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.04);
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 48px;
+  justify-content: center;
+  color: #111;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  border: 1px solid rgba(0,0,0,0.05);
 }
-.contact-avail-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #4ade80;
-  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
-  flex-shrink: 0;
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2); }
-  50%       { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.08); }
+.card-social:hover {
+  background: #111;
+  color: #fff;
+  transform: translateY(-2px);
 }
 
-/* ── Email ── */
-.contact-email {
-  font-size: clamp(1rem, 2.5vw, 1.375rem);
+.card-flip-hint {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.biz-card-scene:hover .card-flip-hint {
+  opacity: 1;
+}
+
+/* ── Back Face ── */
+.biz-card-back {
+  transform: rotateY(180deg);
+  background: #ffffff; /* Light mode back */
+  color: #111;
+}
+
+.card-back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.card-back-header h3 {
+  font-size: 1.35rem;
   font-weight: 500;
-  color: #f5f5f5;
-  text-decoration: none;
   letter-spacing: -0.01em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding-bottom: 4px;
-  margin-bottom: 40px;
-  transition: color 0.2s, border-color 0.2s;
+  font-family: 'Playfair Display', serif;
 }
-.contact-email:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.6);
+.card-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
 }
 
-/* ── Social links ── */
-.contact-socials {
+.card-flip-back-btn {
+  background: none;
+  border: 1px solid rgba(0,0,0,0.1);
+  color: #111;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+.card-flip-back-btn:hover {
+  background: rgba(0,0,0,0.03);
+  transform: translateX(-4px);
+}
+
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.form-row {
   display: flex;
   gap: 16px;
-  margin-bottom: 52px;
 }
-.contact-social-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
-  padding: 9px 16px;
-  border-radius: 99px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: color 0.2s, border-color 0.2s, background 0.2s;
-}
-.contact-social-link:hover {
-  color: #f5f5f5;
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.05);
+.form-row input {
+  flex: 1;
 }
 
-/* ── CTAs ── */
-.contact-ctas {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+.card-form input,
+.card-form textarea {
+  width: 100%;
+  background: rgba(0,0,0,0.02);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: #111;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.card-form input::placeholder,
+.card-form textarea::placeholder {
+  color: rgba(0,0,0,0.4);
 }
 
-.contact-btn {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 13px 28px;
-  border-radius: 99px;
-  transition: background 0.22s, color 0.22s, border-color 0.22s, transform 0.18s;
-  display: inline-block;
-  letter-spacing: -0.01em;
-}
-.contact-btn:hover { transform: translateY(-2px); }
-
-.contact-btn--primary {
-  background: #f5f5f5;
-  color: #1a1a1a;
-  border: 1.5px solid #f5f5f5;
-}
-.contact-btn--primary:hover {
+.card-form input:focus,
+.card-form textarea:focus {
+  outline: none;
+  border-color: rgba(0,0,0,0.3);
   background: #ffffff;
-  border-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+}
+.card-form textarea {
+  resize: none;
+  flex: 1;
+  min-height: 100px;
 }
 
-.contact-btn--secondary {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+.card-submit-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  flex: 1;
 }
-.contact-btn--secondary:hover {
-  color: #f5f5f5;
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.05);
+.card-submit-btn:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 
 /* ── Footer ── */
 .contact-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  padding: 24px clamp(24px, 5vw, 60px);
-  max-width: 100%;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
 }
 .contact-footer p {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.25);
-  max-width: 900px;
-  margin: 0 auto;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* ── Responsive ── */
-@media (max-width: 640px) {
-  .contact-inner { padding-top: 90px; padding-bottom: 60px; }
-  .contact-heading { margin-bottom: 28px; }
-  .contact-socials { flex-wrap: wrap; gap: 10px; }
-  .contact-ctas { flex-direction: column; }
-  .contact-btn { text-align: center; }
+@media (max-width: 800px) {
+  .biz-card-scene {
+    aspect-ratio: auto;
+    height: 550px;
+  }
+  .biz-card-face {
+    padding: 32px;
+  }
+  .card-front-top {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .card-qr {
+    display: none; /* Hide QR on small screens to save space */
+  }
+  .card-front-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .card-links {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card-form textarea {
+    min-height: 80px;
+  }
 }
