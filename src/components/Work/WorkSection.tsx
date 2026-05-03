@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import './WorkSection.css';
