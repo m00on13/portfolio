@@ -21,28 +21,62 @@
 /* ── About Content ── */
 .about-content {
   position: absolute;
-  right: 15vw;
-  max-width: 400px;
+  left: 42vw;
+  right: 5vw;
+  max-width: 650px;
   opacity: 0; /* Hidden initially, GSAP will animate this */
-  /* Move it slightly right initially so GSAP can slide it to x: 0 */
   transform: translateX(50px);
   pointer-events: none; /* disable pointer events until visible */
   z-index: 2;
   color: var(--text);
 }
 
-.about-content h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
+.playground-heading {
+  font-size: 3.5rem;
+  font-weight: 800;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
+  min-height: 4.2rem;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #2563eb, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.playground-cursor {
+  -webkit-text-fill-color: #ec4899;
+  font-weight: 300;
+}
+
+.about-details {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.about-details.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.about-details.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .about-content p {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
   color: var(--text-muted);
+}
+
+.about-content p:first-child {
+  font-size: 1.4rem;
+  color: var(--text);
+  font-weight: 500;
 }
 
 /* ── Badge wrapper ── */
@@ -106,7 +140,13 @@
 
 @media (max-width: 1024px) {
   .about-content {
-    right: 10vw;
+    left: 45vw;
+    right: auto;
+    max-width: 450px;
+  }
+  .playground-heading {
+    font-size: 2.8rem;
+    min-height: 3.2rem;
   }
 }
 
@@ -117,11 +157,22 @@
   
   .about-content {
     position: absolute;
-    right: 50%;
-    transform: translateX(50%) translateY(20px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) translateY(20px);
     bottom: 10vh;
     width: 85vw;
     text-align: center;
+  }
+  .playground-heading {
+    font-size: 2.4rem;
+    min-height: 2.8rem;
+  }
+  .about-content p {
+    font-size: 1.1rem;
+  }
+  .about-content p:first-child {
+    font-size: 1.2rem;
   }
 }
 
