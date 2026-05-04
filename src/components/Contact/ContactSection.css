@@ -112,6 +112,7 @@
   background: transparent;
   transform: translateZ(0); /* Fix Safari overflow hidden bug */
   -webkit-mask-image: -webkit-radial-gradient(white, black); /* Force clip to border radius */
+  mask-image: radial-gradient(white, black);
 }
 .biz-card-glow.active {
   opacity: 1;

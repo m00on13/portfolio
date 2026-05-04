@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import qrImg from '../../assets/qr.png';
 import designImg from '../../assets/design.png';
-import StarBorder from '../ui/StarBorder/StarBorder';
+
 import './ContactSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
