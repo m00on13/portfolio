@@ -74,16 +74,77 @@
   height: 100%;
   backface-visibility: hidden;
   border-radius: 16px;
-  background: #ffffff; /* White card */
-  border: 1px solid rgba(0,0,0,0.05);
+  background: transparent;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 48px;
+}
+
+.biz-card-face-inner {
+  position: absolute;
+  inset: 2px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 46px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.biz-card-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: transparent;
+  transform: translateZ(0); /* Fix Safari overflow hidden bug */
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* Force clip to border radius */
+}
+.biz-card-glow.active {
+  opacity: 1;
+}
+
+.star-border-bottom {
+  position: absolute;
+  width: 300%;
+  height: 60px;
+  opacity: 1;
+  bottom: -30px;
+  right: -250%;
+  border-radius: 50%;
+  z-index: 0;
+  animation: star-movement-bottom 5s linear forwards;
+}
+
+.star-border-top {
+  position: absolute;
+  width: 300%;
+  height: 60px;
+  opacity: 1;
+  top: -30px;
+  left: -250%;
+  border-radius: 50%;
+  z-index: 0;
+  animation: star-movement-top 5s linear forwards;
+}
+
+@keyframes star-movement-bottom {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(-100%, 0%); opacity: 0; }
+}
+
+@keyframes star-movement-top {
+  0% { transform: translate(0%, 0%); opacity: 1; }
+  100% { transform: translate(100%, 0%); opacity: 0; }
 }
 
 /* ── Front Face ── */
-.biz-card-front {
+.biz-card-front .biz-card-face-inner {
   justify-content: space-between;
 }
 
@@ -222,7 +283,6 @@
 /* ── Back Face ── */
 .biz-card-back {
   transform: rotateY(180deg);
-  background: #ffffff; /* Light mode back */
   color: #111;
 }
 
@@ -284,6 +344,7 @@
   width: 100%;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 8px;
   padding: 14px 18px;
@@ -291,6 +352,14 @@
   font-family: var(--sans);
   font-size: 0.95rem;
   transition: border-color 0.2s, background 0.2s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.biz-card-scene:not(.is-flipped) .card-form input,
+.biz-card-scene:not(.is-flipped) .card-form textarea {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .card-form input::placeholder,
 .card-form textarea::placeholder {

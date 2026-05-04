@@ -1,8 +1,9 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import qrImg from '../../assets/qr.png';
 import designImg from '../../assets/design.png';
+import StarBorder from '../ui/StarBorder/StarBorder';
 import './ContactSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -42,6 +43,17 @@ export const ContactSection = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isForceClosed, setIsForceClosed] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isGlowing, setIsGlowing] = useState(false);
+
+  useEffect(() => {
+    const runGlow = () => {
+      setIsGlowing(true);
+      setTimeout(() => setIsGlowing(false), 5000);
+    };
+    setTimeout(runGlow, 2000);
+    const interval = setInterval(runGlow, 15000);
+    return () => clearInterval(interval);
+  }, []);
 
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
 
@@ -121,65 +133,85 @@ export const ContactSection = () => {
 
             {/* Front Face */}
             <div className="biz-card-face biz-card-front">
-              <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
-              <div className="card-front-top">
-                <div className="card-heading-group">
-                  <h2 className="card-slogan">Got something<br />brewing?</h2>
-                  <p className="card-subtext">Let's connect.</p>
-                </div>
+              <div className={`biz-card-glow ${isGlowing ? 'active' : ''}`}>
+                 {isGlowing && (
+                    <>
+                      <div className="star-border-bottom" style={{ background: 'radial-gradient(ellipse 250px 30px at 50% 50%, #a855f7, transparent)' }}></div>
+                      <div className="star-border-top" style={{ background: 'radial-gradient(ellipse 250px 30px at 50% 50%, #a855f7, transparent)' }}></div>
+                    </>
+                 )}
               </div>
-              <div className="card-front-bottom">
-                <div className="card-info">
-                  <h3 className="card-name">Mansi Patel</h3>
-                  <p className="card-role">Full stack Developer / AI Engineer</p>
+              <div className="biz-card-face-inner">
+                <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
+                <div className="card-front-top">
+                  <div className="card-heading-group">
+                    <h2 className="card-slogan">Got something<br />brewing?</h2>
+                    <p className="card-subtext">Let's connect.</p>
+                  </div>
                 </div>
-                <div className="card-links">
-                  {SOCIAL_LINKS.map(link => (
-                    <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="card-social" onClick={e => e.stopPropagation()} aria-label={link.name}>
-                      {link.icon}
+                <div className="card-front-bottom">
+                  <div className="card-info">
+                    <h3 className="card-name">Mansi Patel</h3>
+                    <p className="card-role">Full stack Developer / AI Engineer</p>
+                  </div>
+                  <div className="card-links">
+                    {SOCIAL_LINKS.map(link => (
+                      <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" className="card-social" onClick={e => e.stopPropagation()} aria-label={link.name}>
+                        {link.icon}
+                      </a>
+                    ))}
+                    <a href="mailto:mansi.patel7279s@gmail.com" className="card-social" onClick={e => e.stopPropagation()} aria-label="Email">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                      </svg>
                     </a>
-                  ))}
-                  <a href="mailto:mansi.patel7279s@gmail.com" className="card-social" onClick={e => e.stopPropagation()} aria-label="Email">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                    </svg>
-                  </a>
+                  </div>
                 </div>
-              </div>
-              <div className="card-flip-hint">Click to flip ⟳</div>
-              
-              <div className="card-qr">
-                <img src={qrImg} alt="Contact QR Code" className="qr-image" />
+                <div className="card-flip-hint">Click to flip ⟳</div>
+                
+                <div className="card-qr">
+                  <img src={qrImg} alt="Contact QR Code" className="qr-image" />
+                </div>
               </div>
             </div>
 
             {/* Back Face */}
             <div className="biz-card-face biz-card-back">
-              <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
-              <div className="card-back-header">
-                <h3>Send a message</h3>
+              <div className={`biz-card-glow ${isGlowing ? 'active' : ''}`}>
+                 {isGlowing && (
+                    <>
+                      <div className="star-border-bottom" style={{ background: 'radial-gradient(ellipse 250px 30px at 50% 50%, #a855f7, transparent)' }}></div>
+                      <div className="star-border-top" style={{ background: 'radial-gradient(ellipse 250px 30px at 50% 50%, #a855f7, transparent)' }}></div>
+                    </>
+                 )}
               </div>
-              <form
-                className="card-form"
-                onClick={e => e.stopPropagation()}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onSubmit={e => { e.preventDefault(); alert("Form submitted!"); setFormData({ name: '', email: '', subject: '', message: '' }); setIsClicked(false); setIsFocused(false); setIsForceClosed(true); }}
-              >
-                <div className="form-row">
-                  <input type="text" name="name" placeholder="Your name" required value={formData.name} onChange={handleChange} />
-                  <input type="email" name="email" placeholder="you@email.com" required value={formData.email} onChange={handleChange} />
+              <div className="biz-card-face-inner">
+                <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
+                <div className="card-back-header">
+                  <h3>Send a message</h3>
                 </div>
-                <input type="text" name="subject" placeholder="What's this about?" required value={formData.subject} onChange={handleChange} />
-                <textarea name="message" placeholder="Tell me what you're building..." required value={formData.message} onChange={handleChange}></textarea>
+                <form
+                  className="card-form"
+                  onClick={e => e.stopPropagation()}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onSubmit={e => { e.preventDefault(); alert("Form submitted!"); setFormData({ name: '', email: '', subject: '', message: '' }); setIsClicked(false); setIsFocused(false); setIsForceClosed(true); }}
+                >
+                  <div className="form-row">
+                    <input type="text" name="name" placeholder="Your name" required value={formData.name} onChange={handleChange} />
+                    <input type="email" name="email" placeholder="you@email.com" required value={formData.email} onChange={handleChange} />
+                  </div>
+                  <input type="text" name="subject" placeholder="What's this about?" required value={formData.subject} onChange={handleChange} />
+                  <textarea name="message" placeholder="Tell me what you're building..." required value={formData.message} onChange={handleChange}></textarea>
 
-                <div className="card-form-actions">
-                  <button type="button" className="card-flip-back-btn" onClick={handleCloseArrow} aria-label="Flip back">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-                  </button>
-                  <button type="submit" className="card-submit-btn">Send &rarr;</button>
-                </div>
-              </form>
+                  <div className="card-form-actions">
+                    <button type="button" className="card-flip-back-btn" onClick={handleCloseArrow} aria-label="Flip back">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button type="submit" className="card-submit-btn">Send &rarr;</button>
+                  </div>
+                </form>
+              </div>
             </div>
 
           </div>
