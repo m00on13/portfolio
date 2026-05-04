@@ -35,7 +35,7 @@
 }
 
 .work-label-text {
-  font-family: 'Special Elite', serif;
+  font-family: var(--code);
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -44,6 +44,7 @@
 
 /* ── Section heading ── */
 .work-heading {
+  font-family: var(--display);
   font-size: clamp(2rem, 5vw, 3.25rem);
   font-weight: 700;
   line-height: 1.12;

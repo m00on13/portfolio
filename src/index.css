@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap');
 
 * {
   margin: 0;
@@ -17,8 +15,9 @@ html {
   --text: #2d2d2d;
   --text-muted: #6b6b6b;
   --navbar-height: 64px;
-
   --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --display: 'Audiowide', sans-serif;
+  --code: 'Orbitron', sans-serif;
 
   font-family: var(--sans);
   font-size: 16px;
