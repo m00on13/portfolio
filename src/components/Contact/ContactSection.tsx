@@ -44,6 +44,7 @@ export const ContactSection = () => {
   const [isForceClosed, setIsForceClosed] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isGlowing, setIsGlowing] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     const runGlow = () => {
@@ -100,6 +101,7 @@ export const ContactSection = () => {
     setIsClicked(false);
     setIsFocused(false);
     setIsForceClosed(true);
+    setTimeout(() => setSubmitStatus('idle'), 400); // Reset after flip animation
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -188,29 +190,72 @@ export const ContactSection = () => {
               <div className="biz-card-face-inner">
                 <div className="card-bg-design" style={{ backgroundImage: `url(${designImg})` }}></div>
                 <div className="card-back-header">
-                  <h3>Send a message</h3>
+                  <h3>{submitStatus === 'success' ? 'Message Sent!' : 'Send a message'}</h3>
                 </div>
-                <form
-                  className="card-form"
-                  onClick={e => e.stopPropagation()}
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
-                  onSubmit={e => { e.preventDefault(); alert("Form submitted!"); setFormData({ name: '', email: '', subject: '', message: '' }); setIsClicked(false); setIsFocused(false); setIsForceClosed(true); }}
-                >
-                  <div className="form-row">
-                    <input type="text" name="name" placeholder="Your name" required value={formData.name} onChange={handleChange} />
-                    <input type="email" name="email" placeholder="you@email.com" required value={formData.email} onChange={handleChange} />
-                  </div>
-                  <input type="text" name="subject" placeholder="What's this about?" required value={formData.subject} onChange={handleChange} />
-                  <textarea name="message" placeholder="Tell me what you're building..." required value={formData.message} onChange={handleChange}></textarea>
-
-                  <div className="card-form-actions">
-                    <button type="button" className="card-flip-back-btn" onClick={handleCloseArrow} aria-label="Flip back">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+                {submitStatus === 'success' ? (
+                  <div className="card-success-message" onClick={e => e.stopPropagation()}>
+                    <div className="success-icon">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <p>Thanks for reaching out! I'll get back to you soon.</p>
+                    <button type="button" className="card-submit-btn success-close-btn" onClick={handleCloseArrow}>
+                      Close
                     </button>
-                    <button type="submit" className="card-submit-btn">Send &rarr;</button>
                   </div>
-                </form>
+                ) : (
+                  <form
+                    className="card-form"
+                    onClick={e => e.stopPropagation()}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    onSubmit={async e => {
+                      e.preventDefault();
+                      setSubmitStatus('loading');
+                      try {
+                        const response = await fetch('https://api.web3forms.com/submit', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                          },
+                          body: JSON.stringify({
+                            access_key: import.meta.env.VITE_WEB3FORM_FORM_ACCESS_KEY,
+                            ...formData
+                          })
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                          setSubmitStatus('success');
+                          setFormData({ name: '', email: '', subject: '', message: '' });
+                        } else {
+                          setSubmitStatus('error');
+                          alert(result.message || 'Something went wrong. Please try again.');
+                        }
+                      } catch (error) {
+                        setSubmitStatus('error');
+                        alert('Something went wrong. Please try again.');
+                      }
+                    }}
+                  >
+                    <div className="form-row">
+                      <input type="text" name="name" placeholder="Your name" required value={formData.name} onChange={handleChange} disabled={submitStatus === 'loading'} />
+                      <input type="email" name="email" placeholder="you@email.com" required value={formData.email} onChange={handleChange} disabled={submitStatus === 'loading'} />
+                    </div>
+                    <input type="text" name="subject" placeholder="What's this about?" required value={formData.subject} onChange={handleChange} disabled={submitStatus === 'loading'} />
+                    <textarea name="message" placeholder="Tell me what you're building..." required value={formData.message} onChange={handleChange} disabled={submitStatus === 'loading'}></textarea>
+
+                    {submitStatus === 'error' && <div className="form-error-text" style={{ color: '#ef4444', fontSize: '0.8rem', marginTop: '-0.5rem', marginBottom: '0.5rem' }}>Failed to send message. Please try again.</div>}
+
+                    <div className="card-form-actions">
+                      <button type="button" className="card-flip-back-btn" onClick={handleCloseArrow} aria-label="Flip back" disabled={submitStatus === 'loading'}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+                      </button>
+                      <button type="submit" className="card-submit-btn" disabled={submitStatus === 'loading'}>
+                        {submitStatus === 'loading' ? 'Sending...' : 'Send \u2192'}
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
             </div>
 
