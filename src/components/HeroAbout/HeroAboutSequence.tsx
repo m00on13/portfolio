@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import mansiIdImg from '../../assets/mansi-id.png';
 import TextType from '../ui/TextType';
-import BorderGlow from '../ui/BorderGlow/BorderGlow';
+import StarBorder from '../ui/StarBorder/StarBorder';
 import './HeroAboutSequence.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -143,18 +143,12 @@ export const HeroAboutSequence = () => {
         {/* Hero Badge (initially centered) */}
         <div className="hero-badge-wrapper" ref={badgeRef}>
           <div className="hero-badge-float">
-            <BorderGlow
-              className="hero-id-border-glow"
-              glowColor="280 90 85"
-              backgroundColor="#ffffff"
-              borderRadius={24}
-              glowRadius={80}
-              glowIntensity={3.0}
-              animated={true}
-              edgeSensitivity={30}
-              coneSpread={40}
-              fillOpacity={0.4}
-              colors={['#a855f7', '#e879f9', '#818cf8']}
+            <StarBorder
+              as="div"
+              className="hero-id-star-border"
+              color="#a855f7"
+              speed="5s"
+              thickness={2}
             >
               <div className="hero-id-container">
                 <img
@@ -166,7 +160,7 @@ export const HeroAboutSequence = () => {
                 <div className="pulse-element pulse-name"></div>
                 <div className="pulse-element pulse-qr"></div>
               </div>
-            </BorderGlow>
+            </StarBorder>
           </div>
         </div>
 
