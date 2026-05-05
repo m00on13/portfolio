@@ -1,54 +1,105 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { AnimatePresence } from 'framer-motion';
+import { StoryViewer } from './StoryViewer';
+import type { StoryCategory } from './StoryViewer';
 import './ProjectsSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface Project {
-  tag: string;
-  name: string;
-  pitch: string;
-  outcome: string;
-  stack: string[];
-  github: string;
-  demo?: string;
-  placeholder?: boolean;
-}
+// Placeholder unsplash images for stories
+const IMAGE_AI = "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1932&auto=format&fit=crop";
+const IMAGE_WEB = "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop";
+const IMAGE_GAME = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop";
 
-const PROJECTS: Project[] = [
+const CATEGORIES: StoryCategory[] = [
   {
-    tag: 'Full-Stack · AI · Computer Vision',
-    name: 'Real-Time Indian Sign Language Detection',
-    pitch: 'A full-stack web app that recognises ISL gestures in real time via webcam.',
-    outcome: '92% gesture recognition accuracy · trained on 10,000+ samples · WebRTC integration',
-    stack: ['React', 'Flask', 'TensorFlow', 'MediaPipe', 'WebRTC'],
-    github: 'https://github.com/mansi-patel',
+    id: 'ai-fullstack',
+    title: 'AI & Full-Stack',
+    thumbnail: IMAGE_AI,
+    stories: [
+      {
+        id: 'isl',
+        tag: 'AI · Computer Vision',
+        name: 'Real-Time ISL Detection',
+        pitch: 'A web app that recognises Indian Sign Language gestures in real time via webcam.',
+        outcome: '92% gesture recognition accuracy · trained on 10,000+ samples · WebRTC integration',
+        stack: ['React', 'Flask', 'TensorFlow', 'MediaPipe'],
+        github: 'https://github.com/mansi-patel',
+        image: IMAGE_AI
+      },
+      {
+        id: 'excel-analytics',
+        tag: 'Full-Stack Data',
+        name: 'Excel Analytics Platform',
+        pitch: 'Upload Excel files, explore interactive 2D/3D charts, and manage team access.',
+        outcome: 'JWT auth · Role-based access · 2D/3D dashboards with Chart.js & Three.js',
+        stack: ['React', 'Node.js', 'Express', 'MongoDB'],
+        github: 'https://github.com/mansi-patel',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop'
+      }
+    ]
   },
   {
-    tag: 'Full-Stack · Data Visualisation',
-    name: 'Excel Analytics Platform',
-    pitch: 'Upload Excel files, explore interactive 2D/3D charts, and manage team access — all in one place.',
-    outcome: 'JWT auth · Role-based access · 2D/3D dashboards with Chart.js & Three.js · Admin panel',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Chart.js', 'Three.js'],
-    github: 'https://github.com/mansi-patel',
+    id: 'web-design',
+    title: 'Web & Design',
+    thumbnail: IMAGE_WEB,
+    stories: [
+      {
+        id: 'portfolio',
+        tag: 'Frontend · UX',
+        name: 'Immersive Portfolio',
+        pitch: 'A premium, highly interactive personal portfolio designed to stand out.',
+        stack: ['React', 'GSAP', 'Framer Motion', 'Three.js'],
+        demo: 'https://mansi-patel.com',
+        github: 'https://github.com/mansi-patel/portfolio',
+        image: IMAGE_WEB
+      },
+      {
+        id: 'ecommerce',
+        tag: 'UI/UX Design',
+        name: 'Modern E-commerce UI',
+        pitch: 'A sleek, conversion-optimized Figma concept for a boutique fashion brand.',
+        stack: ['Figma', 'Prototyping', 'Design Systems'],
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop'
+      }
+    ]
   },
   {
-    tag: 'Coming Soon',
-    name: 'Next Build — In Progress',
-    pitch: 'Something new is being built. Follow along on GitHub to see what comes next.',
-    outcome: '',
-    stack: [],
-    github: 'https://github.com/mansi-patel',
-    placeholder: true,
-  },
+    id: 'games',
+    title: 'Games & Practice',
+    thumbnail: IMAGE_GAME,
+    stories: [
+      {
+        id: 'game-engine',
+        tag: 'Game Dev',
+        name: 'Mini Voxel Engine',
+        pitch: 'An experimental 3D voxel renderer built from scratch to understand graphics pipelines.',
+        stack: ['C++', 'OpenGL', 'GLSL'],
+        github: 'https://github.com/mansi-patel',
+        image: IMAGE_GAME
+      },
+      {
+        id: 'coming-soon',
+        tag: 'In Progress',
+        name: 'Next Build',
+        pitch: 'Always experimenting. Follow along on GitHub to see what comes next.',
+        stack: [],
+        github: 'https://github.com/mansi-patel',
+        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop'
+      }
+    ]
+  }
 ];
 
 export const ProjectsSection = () => {
   const sectionRef  = useRef<HTMLElement>(null);
   const labelRef    = useRef<HTMLDivElement>(null);
   const headingRef  = useRef<HTMLHeadingElement>(null);
-  const cardsRef    = useRef<(HTMLDivElement | null)[]>([]);
+  const highlightsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
 
   useLayoutEffect(() => {
     if (!sectionRef.current) return;
@@ -61,16 +112,28 @@ export const ProjectsSection = () => {
         opacity: 0, y: 30, duration: 0.8,
         scrollTrigger: { trigger: headingRef.current, start: 'top 88%', toggleActions: 'play none none none' },
       });
-      cardsRef.current.forEach((el, i) => {
+      highlightsRef.current.forEach((el, i) => {
         if (!el) return;
         gsap.from(el, {
-          opacity: 0, y: 40, duration: 0.75, delay: i * 0.1,
-          scrollTrigger: { trigger: el, start: 'top 86%', toggleActions: 'play none none none' },
+          opacity: 0, scale: 0.8, y: 20, duration: 0.6, delay: i * 0.15,
+          ease: "back.out(1.7)",
+          scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' },
         });
       });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
+
+  const activeCategoryIndex = CATEGORIES.findIndex(c => c.id === activeCategoryId);
+  const activeCategory = CATEGORIES[activeCategoryIndex];
+
+  const handleNextCategory = () => {
+    if (activeCategoryIndex < CATEGORIES.length - 1) {
+      setActiveCategoryId(CATEGORIES[activeCategoryIndex + 1].id);
+    } else {
+      setActiveCategoryId(null); // Close if last category
+    }
+  };
 
   return (
     <section id="projects" className="projects-section" ref={sectionRef}>
@@ -81,73 +144,44 @@ export const ProjectsSection = () => {
         </div>
 
         <h2 className="section-heading" ref={headingRef}>
-          Things I've built.
+          My Highlights
         </h2>
+        <p className="projects-subtitle">
+          Tap a circle to view stories.
+        </p>
 
-        <div className="projects-grid">
-          {PROJECTS.map((p, i) => (
-            <div
-              key={i}
-              className={`project-card ${p.placeholder ? 'project-card--placeholder' : ''}`}
-              ref={el => { cardsRef.current[i] = el; }}
+        {/* Highlights Row */}
+        <div className="highlights-row">
+          {CATEGORIES.map((cat, i) => (
+            <button 
+              key={cat.id} 
+              className="highlight-item"
+              ref={el => { highlightsRef.current[i] = el; }}
+              onClick={() => setActiveCategoryId(cat.id)}
+              aria-label={`View ${cat.title} projects`}
             >
-              <div className="project-card-top">
-                <span className="project-tag">{p.tag}</span>
-                <div className="project-card-links">
-                  {!p.placeholder && (
-                    <a href={p.github} target="_blank" rel="noopener noreferrer"
-                       className="project-link" aria-label="GitHub repository">
-                      <GitHubIcon />
-                    </a>
-                  )}
-                  {p.demo && (
-                    <a href={p.demo} target="_blank" rel="noopener noreferrer"
-                       className="project-link project-link--demo" aria-label="Live demo">
-                      <ExternalIcon />
-                    </a>
-                  )}
+              <div className="highlight-ring">
+                <div className="highlight-image-container">
+                  <img src={cat.thumbnail} alt={cat.title} className="highlight-image" />
                 </div>
               </div>
-
-              <h3 className="project-name">{p.name}</h3>
-              <p className="project-pitch">{p.pitch}</p>
-
-              {p.outcome && (
-                <p className="project-outcome">{p.outcome}</p>
-              )}
-
-              {p.stack.length > 0 && (
-                <div className="project-stack">
-                  {p.stack.map(tag => (
-                    <span className="project-pill" key={tag}>{tag}</span>
-                  ))}
-                </div>
-              )}
-
-              {p.placeholder && (
-                <a href={p.github} target="_blank" rel="noopener noreferrer"
-                   className="project-follow-link">
-                  Follow on GitHub →
-                </a>
-              )}
-            </div>
+              <span className="highlight-title">{cat.title}</span>
+            </button>
           ))}
         </div>
       </div>
+
+      {/* Full Screen Story Viewer */}
+      <AnimatePresence>
+        {activeCategory && (
+          <StoryViewer 
+            stories={activeCategory.stories} 
+            categoryTitle={activeCategory.title}
+            onClose={() => setActiveCategoryId(null)}
+            onNextCategory={handleNextCategory}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };
-
-const GitHubIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-  </svg>
-);
-
-const ExternalIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-    <polyline points="15 3 21 3 21 9"/>
-    <line x1="10" y1="14" x2="21" y2="3"/>
-  </svg>
-);
