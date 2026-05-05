@@ -10,12 +10,13 @@
 
 #hero {
   display: flex;
-  align-items: center; /* center vertically */
+  align-items: center;
   justify-content: center;
   height: 100svh;
   width: 100%;
   position: relative;
   overflow: hidden;
+  perspective: 2000px; /* Added for 3D card effect */
 }
 
 /* ── About Content ── */
@@ -82,54 +83,125 @@
 .hero-badge-wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-  /* GSAP will animate this, no CSS animations here! */
+  z-index: 10;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-/* Inner wrapper for CSS float animation */
+/* Inner wrapper for CSS float/swing animation */
 .hero-badge-float {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: badge-float 4s ease-in-out infinite;
+  animation: card-float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
 }
 
 /* ── The combined ID image ── */
-.hero-id {
-  height: 95svh; /* Enlarged so it takes up most of the vertical space */
-  max-height: 900px;
-  width: auto;
-  position: relative;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.10))
-          drop-shadow(0 8px 16px rgba(0, 0, 0, 0.06));
+.hero-id-border-glow {
+  height: 70svh;
+  max-height: 700px;
+  aspect-ratio: 0.65;
+  will-change: transform;
+}
 
-  /* fade-in on load */
-  animation: card-enter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+.hero-id-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.hero-id {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  display: block;
+}
+
+/* ── Holographic Overlay ── */
+.holographic-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 300% 300%;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: shimmer 8s infinite linear;
+  z-index: 2;
+}
+
+/* ── Pulsing States ── */
+.pulse-element {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pulse-name {
+  top: 40%;
+  left: 36%;
+  width: 32%;
+  height: 10%;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.pulse-qr {
+  top: 58%;
+  left: 38%;
+  width: 16%;
+  height: 12%;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+  animation: pulse-soft 2s ease-in-out infinite 1s;
 }
 
 /* ─────────────────────────────────────
    Animations
    ───────────────────────────────────── */
 
-@keyframes badge-float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+@keyframes card-float {
+  0%, 100% { transform: translateY(0) rotateX(2deg); }
+  50% { transform: translateY(-20px) rotateX(5deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
 }
 
 @keyframes card-enter {
   from {
     opacity: 0;
-    transform: translateY(-30px) scale(0.95);
+    transform: translateY(-50px) rotateX(-20deg) scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) rotateX(0) scale(1);
   }
 }
 
@@ -138,6 +210,9 @@
    ───────────────────────────────────── */
 
 @media (max-width: 1024px) {
+  .hero-id-container {
+    height: 60svh;
+  }
   .about-content {
     left: 45vw;
     right: auto;
@@ -150,8 +225,8 @@
 }
 
 @media (max-width: 768px) {
-  .hero-id {
-    height: 85svh;
+  .hero-id-container {
+    height: 55svh;
   }
   
   .about-content {
@@ -159,7 +234,7 @@
     left: 50%;
     right: auto;
     transform: translateX(-50%) translateY(20px);
-    bottom: 10vh;
+    bottom: 8vh;
     width: 85vw;
     text-align: center;
   }
@@ -176,7 +251,7 @@
 }
 
 @media (max-width: 480px) {
-  .hero-id {
-    height: 75svh;
+  .hero-id-container {
+    height: 50svh;
   }
 }

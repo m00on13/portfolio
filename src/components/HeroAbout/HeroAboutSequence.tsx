@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import mansiIdImg from '../../assets/mansi-id.png';
 import TextType from '../ui/TextType';
+import BorderGlow from '../ui/BorderGlow/BorderGlow';
 import './HeroAboutSequence.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +19,23 @@ export const HeroAboutSequence = () => {
   useLayoutEffect(() => {
     if (!containerRef.current || !badgeRef.current || !aboutTextRef.current) return;
 
+    // Mouse follow tilt effect
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const xPos = (clientX / innerWidth - 0.5) * 20; // max 10deg tilt
+      const yPos = (clientY / innerHeight - 0.5) * -20;
+
+      gsap.to(badgeRef.current, {
+        rotateY: xPos,
+        rotateX: yPos,
+        duration: 1,
+        ease: "power2.out"
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
     let mm = gsap.matchMedia();
 
     mm.add("(min-width: 769px)", () => {
@@ -26,11 +44,11 @@ export const HeroAboutSequence = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=120%", // User scrolls 1.2x viewport height to complete
+          end: "+=150%", // Increased scroll distance
           scrub: 1,
           pin: true,
           onUpdate: (self) => {
-            if (self.progress > 0.15 && !startedTypingRef.current) {
+            if (self.progress > 0.4 && !startedTypingRef.current) {
               startedTypingRef.current = true;
               setStartTyping(true);
             }
@@ -38,18 +56,21 @@ export const HeroAboutSequence = () => {
         }
       });
 
+      // Phase 1: Move to Top Center Avatar position
       tl.to(badgeRef.current, {
-        x: '-25vw', // Move to the left
-        scale: 0.85, // Shrink slightly
+        y: '-35vh',
+        scale: 0.3,
         ease: "power2.inOut"
       }, 0);
 
+      // Phase 2: Reveal About Text
       tl.to(aboutTextRef.current, {
         opacity: 1,
+        y: '10vh', // Move it down a bit to clear the avatar
         x: 0,
         pointerEvents: "auto",
         ease: "power2.inOut"
-      }, 0);
+      }, 0.3);
     });
 
     mm.add("(max-width: 768px)", () => {
@@ -58,11 +79,11 @@ export const HeroAboutSequence = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=100%",
+          end: "+=120%",
           scrub: 1,
           pin: true,
           onUpdate: (self) => {
-            if (self.progress > 0.15 && !startedTypingRef.current) {
+            if (self.progress > 0.4 && !startedTypingRef.current) {
               startedTypingRef.current = true;
               setStartTyping(true);
             }
@@ -71,21 +92,22 @@ export const HeroAboutSequence = () => {
       });
 
       tl.to(badgeRef.current, {
-        y: '-15vh', // Move up
-        scale: 0.85,
+        y: '-38vh',
+        scale: 0.25,
         ease: "power2.inOut"
       }, 0);
 
       tl.to(aboutTextRef.current, {
         opacity: 1,
-        y: 0, // In CSS it's initially transformed 20px down
+        y: '5vh',
         pointerEvents: "auto",
         ease: "power2.inOut"
-      }, 0);
+      }, 0.3);
     });
 
     return () => {
       mm.revert();
+      window.removeEventListener('mousemove', handleMouseMove);
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
@@ -121,11 +143,30 @@ export const HeroAboutSequence = () => {
         {/* Hero Badge (initially centered) */}
         <div className="hero-badge-wrapper" ref={badgeRef}>
           <div className="hero-badge-float">
-            <img
-              src={mansiIdImg}
-              alt="Mansi Patel ID Badge"
-              className="hero-id"
-            />
+            <BorderGlow
+              className="hero-id-border-glow"
+              glowColor="280 90 85"
+              backgroundColor="#ffffff"
+              borderRadius={24}
+              glowRadius={80}
+              glowIntensity={3.0}
+              animated={true}
+              edgeSensitivity={30}
+              coneSpread={40}
+              fillOpacity={0.4}
+              colors={['#a855f7', '#e879f9', '#818cf8']}
+            >
+              <div className="hero-id-container">
+                <img
+                  src={mansiIdImg}
+                  alt="Mansi Patel ID Badge"
+                  className="hero-id"
+                />
+                <div className="holographic-overlay"></div>
+                <div className="pulse-element pulse-name"></div>
+                <div className="pulse-element pulse-qr"></div>
+              </div>
+            </BorderGlow>
           </div>
         </div>
 
