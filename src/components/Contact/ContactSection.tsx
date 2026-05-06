@@ -122,7 +122,7 @@ export const ContactSection = () => {
 
         <div className="contact-label">
           <span className="contact-label-line" />
-          <span className="contact-label-text">// 06 — Contact</span>
+          <span className="contact-label-text">// 03 — Contact</span>
         </div>
 
         <div

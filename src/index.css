@@ -43,10 +43,7 @@ body {
 }
 
 /* All named sections account for the fixed navbar on jump */
-#work,
-#projects,
-#skills,
-#education,
+#profile,
 #contact {
   scroll-margin-top: var(--navbar-height);
 }

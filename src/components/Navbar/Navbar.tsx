@@ -2,9 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Work',     href: '#work'     },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills',   href: '#skills'   },
+  { label: 'Profile',  href: '#profile'  },
   { label: 'Contact',  href: '#contact'  },
 ];
 
@@ -17,7 +15,7 @@ export const Navbar = () => {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      const ids = ['work', 'projects', 'skills', 'education', 'contact'];
+      const ids = ['profile', 'contact'];
       let current = '';
       for (const id of ids) {
         const el = document.getElementById(id);

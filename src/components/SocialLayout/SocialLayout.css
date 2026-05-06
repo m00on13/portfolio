@@ -1,0 +1,552 @@
+/* ─────────────────────────────────────
+   Social Layout — Instagram-style Profile
+   ───────────────────────────────────── */
+
+.social-layout {
+  width: 100%;
+  background: var(--bg);
+  padding: 80px 0 60px;
+  scroll-margin-top: var(--navbar-height);
+  position: relative;
+}
+
+/* ── Main Container (No more card) ── */
+.social-container {
+  max-width: 935px; /* Instagram's desktop container width */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ── Desktop Header (Hidden on Mobile) ── */
+.social-header {
+  display: flex;
+  margin-bottom: 44px;
+  gap: 30px;
+}
+
+.social-avatar-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.social-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+.social-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.social-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.social-top-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 4px;
+}
+
+.social-username {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.social-stats-desktop {
+  display: flex;
+  gap: 40px;
+}
+
+.social-stat {
+  display: flex;
+  gap: 5px;
+  font-size: 1rem;
+}
+
+.social-stat-value {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.social-stat-label {
+  color: var(--text);
+}
+
+.social-bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.social-display-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.social-category {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.social-bio-text {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.4;
+  white-space: pre-line;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #00376b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+/* ── Mobile Header (Hidden on Desktop) ── */
+.social-mobile-header {
+  display: none;
+}
+
+/* ── Section Divider (Desktop style is more subtle) ── */
+.social-divider {
+  height: 1px;
+  background: #dbdbdb;
+  margin: 0;
+  border: none;
+}
+
+/* ── Section Labels ── */
+.social-section-label {
+  font-family: var(--code);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 24px 0 12px;
+  display: block;
+}
+
+/* ── Tech Stack Cloud ── */
+.social-techstack {
+  padding: 0 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-hashtag {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 99px;
+  border: 1px solid;
+  cursor: default;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.tech-hashtag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Hashtag color variants */
+.tech-hashtag.color-0 { background: #e0f2f1; color: #00695c; border-color: #b2dfdb; }
+.tech-hashtag.color-1 { background: #f3e5f5; color: #6a1b9a; border-color: #e1bee7; }
+.tech-hashtag.color-2 { background: #e3f2fd; color: #1565c0; border-color: #bbdefb; }
+.tech-hashtag.color-3 { background: #fff3e0; color: #e65100; border-color: #ffe0b2; }
+.tech-hashtag.color-4 { background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9; }
+.tech-hashtag.color-5 { background: #fce4ec; color: #ad1457; border-color: #f8bbd0; }
+.tech-hashtag.color-6 { background: #ede7f6; color: #4527a0; border-color: #d1c4e9; }
+.tech-hashtag.color-7 { background: #e1f5fe; color: #01579b; border-color: #b3e5fc; }
+.tech-hashtag.color-8 { background: #fffde7; color: #f57f17; border-color: #fff9c4; }
+.tech-hashtag.color-9 { background: #fbe9e7; color: #bf360c; border-color: #ffccbc; }
+
+/* ── Story Highlights ── */
+.social-highlights {
+  padding: 10px 0 44px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.social-highlights::-webkit-scrollbar { display: none; }
+
+.highlight-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  min-width: 72px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.highlight-btn:hover { transform: translateY(-2px); }
+
+.highlight-icon-ring {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border: 2px solid rgba(45, 45, 45, 0.1);
+}
+
+.highlight-btn:hover .highlight-icon-ring {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: scale(1.06);
+}
+
+.highlight-icon-inner {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.highlight-btn-label {
+  font-family: var(--code);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--text);
+  opacity: 0.75;
+}
+
+/* ── Tab Bar ── */
+.social-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(45, 45, 45, 0.07);
+  position: relative;
+}
+
+.social-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--code);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
+  position: relative;
+}
+
+.social-tab.active {
+  color: var(--text);
+}
+
+.social-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--text);
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.social-tab.active::after {
+  transform: scaleX(1);
+}
+
+.social-tab:hover {
+  color: var(--text);
+}
+
+/* ── Grid Label ── */
+.social-grid-label {
+  font-family: var(--code);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 16px 0 8px;
+  opacity: 0.7;
+}
+
+/* ── Project Grid ── */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(45, 45, 45, 0.06);
+}
+
+.social-grid-card {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.grid-card-icon {
+  color: rgba(45, 45, 45, 0.35);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1;
+}
+
+.social-grid-card:hover .grid-card-icon {
+  transform: scale(0.9);
+  opacity: 0.5;
+}
+
+/* Hover overlay */
+.grid-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 30, 30, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.social-grid-card:hover .grid-card-overlay {
+  opacity: 1;
+}
+
+.grid-card-name {
+  font-family: var(--display);
+  font-size: 0.75rem;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.grid-card-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.grid-card-pill {
+  font-size: 0.55rem;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.grid-card-status {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4ade80;
+  margin-top: 2px;
+}
+
+.grid-card-link {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  z-index: 3;
+  transition: color 0.2s;
+}
+.grid-card-link:hover { color: #fff; }
+
+/* ── Empty Tab State ── */
+.social-empty-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px 32px;
+  text-align: center;
+}
+
+.social-empty-icon {
+  color: var(--text-muted);
+  opacity: 0.3;
+}
+
+.social-empty-text {
+  font-family: var(--code);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ─────────────────────────────────────
+   Responsive
+   ───────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .social-layout {
+    padding: 0;
+  }
+  
+  .social-container {
+    padding: 0;
+  }
+
+  .social-header {
+    display: none;
+  }
+
+  .social-mobile-header {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 16px 12px;
+    background: #fff;
+  }
+
+  .social-mobile-top {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 12px;
+  }
+
+  .social-avatar-mobile {
+    width: 77px;
+    height: 77px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .social-avatar-mobile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .social-mobile-stats {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .social-mobile-stats .social-stat {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .social-mobile-stats .social-stat-value {
+    font-size: 1.1rem;
+  }
+
+  .social-mobile-stats .social-stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .social-mobile-bio {
+    margin-bottom: 16px;
+  }
+
+  .social-tabs {
+    border-top: 1px solid #dbdbdb;
+  }
+
+  .social-grid {
+    gap: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-layout {
+    padding: 24px 10px 40px;
+  }
+
+  .social-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .social-handle-row {
+    justify-content: center;
+  }
+
+  .social-stats {
+    justify-content: center;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .social-highlights {
+    justify-content: flex-start;
+  }
+
+  .highlight-icon-ring {
+    width: 52px;
+    height: 52px;
+  }
+
+  .highlight-icon-inner {
+    width: 44px;
+    height: 44px;
+  }
+
+  .highlight-btn-label {
+    font-size: 0.58rem;
+  }
+}

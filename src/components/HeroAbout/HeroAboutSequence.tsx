@@ -1,8 +1,7 @@
-import { useRef, useLayoutEffect, useState } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import mansiIdImg from '../../assets/mansi-id.png';
-import TextType from '../ui/TextType';
 import StarBorder from '../ui/StarBorder/StarBorder';
 import './HeroAboutSequence.css';
 
@@ -11,19 +10,15 @@ gsap.registerPlugin(ScrollTrigger);
 export const HeroAboutSequence = () => {
   const containerRef = useRef(null);
   const badgeRef = useRef(null);
-  const aboutTextRef = useRef(null);
-  const [typingComplete, setTypingComplete] = useState(false);
-  const [startTyping, setStartTyping] = useState(false);
-  const startedTypingRef = useRef(false);
 
   useLayoutEffect(() => {
-    if (!containerRef.current || !badgeRef.current || !aboutTextRef.current) return;
+    if (!containerRef.current || !badgeRef.current) return;
 
     // Mouse follow tilt effect
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
-      const xPos = (clientX / innerWidth - 0.5) * 20; // max 10deg tilt
+      const xPos = (clientX / innerWidth - 0.5) * 20; 
       const yPos = (clientY / innerHeight - 0.5) * -20;
 
       gsap.to(badgeRef.current, {
@@ -36,78 +31,79 @@ export const HeroAboutSequence = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    let mm = gsap.matchMedia();
+    // Match Media for responsive flight path
+    const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 769px)", () => {
-      // Desktop Animation
+    mm.add({
+      isDesktop: "(min-width: 769px)",
+      isMobile: "(max-width: 768px)"
+    }, (context) => {
+      const { isDesktop } = context.conditions as any;
+
+      // Ensure the social section is ready to be revealed behind the hero
+      gsap.set("#profile", { 
+        position: "absolute", 
+        top: 0, 
+        left: 0, 
+        width: "100%", 
+        opacity: 0, 
+        zIndex: 5,
+        pointerEvents: "none"
+      });
+
+      // Scroll Animation: Twist and send to profile icon
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=150%", // Increased scroll distance
+          end: "+=150%", // Longer scroll for the reveal
           scrub: 1,
           pin: true,
           onUpdate: (self) => {
-            if (self.progress > 0.4 && !startedTypingRef.current) {
-              startedTypingRef.current = true;
-              setStartTyping(true);
+            // As we finish, we want the social section to become interactive and relative again
+            if (self.progress > 0.95) {
+              gsap.set("#profile", { position: "relative", pointerEvents: "auto", zIndex: 1 });
+              gsap.set(containerRef.current, { visibility: "hidden" });
+            } else {
+              gsap.set("#profile", { position: "absolute", pointerEvents: "none", zIndex: 5 });
+              gsap.set(containerRef.current, { visibility: "visible" });
             }
           }
         }
       });
 
-      // Phase 1: Move to Top Center Avatar position
-      tl.to(badgeRef.current, {
-        y: '-35vh',
-        scale: 0.3,
+      // 1. Reveal Social Section in place
+      tl.to("#profile", {
+        opacity: 1,
+        duration: 0.6,
         ease: "power2.inOut"
       }, 0);
 
-      // Phase 2: Reveal About Text
-      tl.to(aboutTextRef.current, {
-        opacity: 1,
-        y: '10vh', // Move it down a bit to clear the avatar
-        x: 0,
-        pointerEvents: "auto",
+      // 2. Animate the card: Twist, scale down, and move to top-left (avatar position)
+      tl.to(badgeRef.current, {
+        scale: isDesktop ? 0.11 : 0.15,
+        rotateY: 1440,
+        rotateX: 360,
+        x: isDesktop ? "-308px" : "0", 
+        y: isDesktop ? "-30vh" : "-35vh",
         ease: "power2.inOut"
-      }, 0.3);
-    });
+      }, 0);
 
-    mm.add("(max-width: 768px)", () => {
-      // Mobile Animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=120%",
-          scrub: 1,
-          pin: true,
-          onUpdate: (self) => {
-            if (self.progress > 0.4 && !startedTypingRef.current) {
-              startedTypingRef.current = true;
-              setStartTyping(true);
-            }
-          }
-        }
+      // 3. Optional: add a tiny "pop" at the end of the flight
+      tl.to(badgeRef.current, {
+        scale: isDesktop ? 0.13 : 0.18,
+        duration: 0.1,
+        ease: "back.out(2)"
+      }).to(badgeRef.current, {
+        scale: isDesktop ? 0.11 : 0.15,
+        opacity: 0,
+        duration: 0.1
       });
-
-      tl.to(badgeRef.current, {
-        y: '-38vh',
-        scale: 0.25,
-        ease: "power2.inOut"
-      }, 0);
-
-      tl.to(aboutTextRef.current, {
-        opacity: 1,
-        y: '5vh',
-        pointerEvents: "auto",
-        ease: "power2.inOut"
-      }, 0.3);
     });
 
     return () => {
-      mm.revert();
       window.removeEventListener('mousemove', handleMouseMove);
+      mm.revert();
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
@@ -115,31 +111,6 @@ export const HeroAboutSequence = () => {
   return (
     <div className="hero-about-sequence" ref={containerRef}>
       <section id="hero">
-
-        {/* About Me Content (initially hidden, right side) */}
-        <div className="about-content" ref={aboutTextRef}>
-          <TextType 
-            as="h2"
-            text="Welcome to my playground"
-            typingSpeed={75}
-            loop={false}
-            showCursor={true}
-            onSentenceComplete={() => setTypingComplete(true)}
-            startOnVisible={false}
-            startTyping={startTyping}
-            className="playground-heading"
-            cursorClassName="playground-cursor"
-          />
-          <div className={`about-details ${typingComplete ? 'visible' : 'hidden'}`}>
-            <p>
-              Hi! I'm Mansi, an AI fullstack developer who builds across the stack — from RAG pipelines and agentic AI systems to frontend interfaces and automation workflows.
-            </p>
-            <p>
-              I hold a BTech in Information Technology and have hands-on experience shipping production-grade AI features, building MCP integrations, and leading fullstack work across live client projects. My work tends to live at the intersection of data engineering, intelligent systems, and the interfaces that tie them together.
-            </p>
-          </div>
-        </div>
-
         {/* Hero Badge (initially centered) */}
         <div className="hero-badge-wrapper" ref={badgeRef}>
           <div className="hero-badge-float">
@@ -163,7 +134,6 @@ export const HeroAboutSequence = () => {
             </StarBorder>
           </div>
         </div>
-
       </section>
     </div>
   );
