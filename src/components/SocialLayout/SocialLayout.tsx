@@ -10,9 +10,45 @@ import {
   Grid3X3, Play, BookOpen,
   Shield, MessageSquareText, BarChart3, FileText,
   Zap, Monitor, Eye, Table, Layout, Gamepad2,
-  ExternalLink,
+  ExternalLink, Mail,
 } from 'lucide-react';
 import './SocialLayout.css';
+
+// Custom SVG components for brands missing in this lucide-react version
+const GitHub = ({ size = 24 }: { size?: number }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
+const Instagram = ({ size = 24 }: { size?: number }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -171,7 +207,13 @@ export const SocialLayout = () => {
               </p>
               <div className="social-links">
                 <a href="https://github.com/m00on13" target="_blank" rel="noopener noreferrer" className="social-link">
-                  <ExternalLink size={14} /> github.com/m00on13
+                  <GitHub size={20} /> github.com/m00on13
+                </a>
+                <a href="https://instagram.com/mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
+                  <Instagram size={20} /> @mansipatell
+                </a>
+                <a href="mailto:mansi.patel@example.com" className="social-link">
+                  <Mail size={20} /> mansi.patel@example.com
                 </a>
               </div>
             </div>
@@ -205,6 +247,17 @@ export const SocialLayout = () => {
             <p className="social-bio-text">
               building agentic systems, rag pipelines &amp; frontend &middot; also paint things
             </p>
+            <div className="social-links mobile">
+              <a href="https://github.com/m00on13" target="_blank" rel="noopener noreferrer" className="social-link">
+                <GitHub size={18} />
+              </a>
+              <a href="https://instagram.com/mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
+                <Instagram size={18} />
+              </a>
+              <a href="mailto:mansi.patel@example.com" className="social-link">
+                <Mail size={18} />
+              </a>
+            </div>
           </div>
         </div>
 
@@ -230,7 +283,7 @@ export const SocialLayout = () => {
             >
               <div className="highlight-icon-ring" style={{ borderColor: hl.iconColor + '40' }}>
                 <div className="highlight-icon-inner" style={{ background: hl.bgColor }}>
-                  <hl.Icon size={24} color={hl.iconColor} strokeWidth={1.8} />
+                  <hl.Icon size={40} color={hl.iconColor} strokeWidth={1.8} />
                 </div>
               </div>
               <span className="highlight-btn-label">{hl.title}</span>
@@ -243,13 +296,13 @@ export const SocialLayout = () => {
         {/* ── Tab Bar ── */}
         <div className="social-tabs">
           <button className={`social-tab ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>
-            <Grid3X3 size={14} /> projects
+            <Grid3X3 size={24} /> projects
           </button>
           <button className={`social-tab ${activeTab === 'reels' ? 'active' : ''}`} onClick={() => setActiveTab('reels')}>
-            <Play size={14} /> reels / demos
+            <Play size={24} /> reels / demos
           </button>
           <button className={`social-tab ${activeTab === 'blogs' ? 'active' : ''}`} onClick={() => setActiveTab('blogs')}>
-            <BookOpen size={14} /> blogs
+            <BookOpen size={24} /> blogs
           </button>
         </div>
 
@@ -260,7 +313,7 @@ export const SocialLayout = () => {
             <div className="social-grid">
               {GRID_PROJECTS.map(proj => (
                 <div key={proj.id} className="social-grid-card" style={{ background: proj.bgColor }}>
-                  <proj.Icon size={36} className="grid-card-icon" strokeWidth={1.5} />
+                  <proj.Icon size={64} className="grid-card-icon" strokeWidth={1.2} />
                   <div className="grid-card-overlay">
                     <span className="grid-card-name">{proj.name}</span>
                     <div className="grid-card-stack">
@@ -272,7 +325,7 @@ export const SocialLayout = () => {
                   </div>
                   {proj.github && (
                     <a href={proj.github} target="_blank" rel="noopener noreferrer" className="grid-card-link" onClick={e => e.stopPropagation()}>
-                      <ExternalLink size={14} />
+                      <GitHub size={24} />
                     </a>
                   )}
                 </div>
