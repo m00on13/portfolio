@@ -38,7 +38,7 @@ const SOCIAL_LINKS = [
   }
 ];
 
-export const ContactSection = () => {
+export const ContactSection = ({ isModal = false, onClose }: { isModal?: boolean; onClose?: () => void }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isForceClosed, setIsForceClosed] = useState(false);
@@ -117,13 +117,25 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="contact-section" ref={sectionRef}>
-      <div className="contact-container">
+    <section 
+      id="contact" 
+      className={`contact-section ${isModal ? 'modal' : ''}`} 
+      ref={sectionRef}
+      onClick={isModal ? onClose : undefined}
+    >
+      <div className="contact-container" onClick={e => e.stopPropagation()}>
+        {isModal && (
+          <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        )}
 
-        <div className="contact-label">
-          <span className="contact-label-line" />
-          <span className="contact-label-text">// 03 — Contact</span>
-        </div>
+        {!isModal && (
+          <div className="contact-label">
+            <span className="contact-label-line" />
+            <span className="contact-label-text">// 03 — Contact</span>
+          </div>
+        )}
 
         <div
           className={`biz-card-scene ${isFlipped ? 'is-flipped' : ''}`}

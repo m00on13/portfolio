@@ -10,21 +10,21 @@ import {
   Grid3X3, Play, BookOpen,
   Shield, MessageSquareText, BarChart3, FileText,
   Zap, Monitor, Eye, Table, Layout, Gamepad2,
-  ExternalLink, Mail,
+  Mail,
 } from 'lucide-react';
 import './SocialLayout.css';
 
 // Custom SVG components for brands missing in this lucide-react version
 const GitHub = ({ size = 24 }: { size?: number }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
     strokeLinejoin="round"
   >
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -33,15 +33,15 @@ const GitHub = ({ size = 24 }: { size?: number }) => (
 );
 
 const Instagram = ({ size = 24 }: { size?: number }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
     strokeLinejoin="round"
   >
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -147,7 +147,7 @@ const GRID_PROJECTS: GridProject[] = [
 ];
 
 /* ─── Main Component ─── */
-export const SocialLayout = () => {
+export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<'projects' | 'reels' | 'blogs'>('projects');
@@ -181,7 +181,7 @@ export const SocialLayout = () => {
 
           <div className="social-info">
             <div className="social-top-row">
-              <h2 className="social-username">mansi.dev</h2>
+              <h2 className="social-username">mansi.patel</h2>
             </div>
 
             <div className="social-stats-desktop">
@@ -200,21 +200,26 @@ export const SocialLayout = () => {
             </div>
 
             <div className="social-bio-content">
-              <div className="social-display-name">Mansi Patel ✨</div>
-              <div className="social-category">AI fullstack · Artist</div>
+              <div className="social-display-name">Mansi Patel</div>
+              <div className="social-category">AI fullstack Developer</div>
               <p className="social-bio-text">
-                building agentic systems, rag pipelines &amp; frontend &middot; also paint things
+                building agentic systems, rag pipelines &amp; full stack applications
               </p>
               <div className="social-links">
                 <a href="https://github.com/m00on13" target="_blank" rel="noopener noreferrer" className="social-link">
                   <GitHub size={20} /> github.com/m00on13
                 </a>
-                <a href="https://instagram.com/mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
-                  <Instagram size={20} /> @mansipatell
+                <a href="https://instagram.com/_.mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
+                  <Instagram size={20} /> @_.mansipatell
                 </a>
                 <a href="mailto:mansi.patel@example.com" className="social-link">
                   <Mail size={20} /> mansi.patel@example.com
                 </a>
+              </div>
+
+              <div className="social-actions">
+                <button onClick={onOpenContact} className="social-btn primary">Contact</button>
+                <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn secondary">Resume</a>
               </div>
             </div>
           </div>
@@ -242,21 +247,26 @@ export const SocialLayout = () => {
             </div>
           </div>
           <div className="social-mobile-bio">
-            <div className="social-display-name">Mansi Patel ✨</div>
-            <div className="social-category">AI fullstack · Artist</div>
+            <div className="social-display-name">Mansi Patel</div>
+            <div className="social-category">AI fullstack Developer</div>
             <p className="social-bio-text">
-              building agentic systems, rag pipelines &amp; frontend &middot; also paint things
+              building agentic systems, rag pipelines &amp; full stack applications
             </p>
             <div className="social-links mobile">
               <a href="https://github.com/m00on13" target="_blank" rel="noopener noreferrer" className="social-link">
                 <GitHub size={18} />
               </a>
-              <a href="https://instagram.com/mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://instagram.com/_.mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
                 <Instagram size={18} />
               </a>
               <a href="mailto:mansi.patel@example.com" className="social-link">
                 <Mail size={18} />
               </a>
+            </div>
+
+            <div className="social-actions">
+              <button onClick={onOpenContact} className="social-btn primary">Contact</button>
+              <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn secondary">Resume</a>
             </div>
           </div>
         </div>
