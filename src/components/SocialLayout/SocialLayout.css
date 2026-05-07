@@ -203,13 +203,24 @@
 /* ── Section Labels ── */
 .social-section-label {
   font-family: var(--code);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
-  padding: 40px 0 20px;
-  display: block;
+  padding: 48px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.6;
+}
+
+.social-section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.3;
 }
 
 /* ── Tech Stack Cloud ── */
@@ -221,32 +232,24 @@
 }
 
 .tech-hashtag {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 10px 22px;
-  border-radius: 99px;
-  border: 1px solid;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   cursor: default;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
   letter-spacing: 0.01em;
+  font-family: var(--code);
 }
 
 .tech-hashtag:hover {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
-
-/* Hashtag color variants */
-.tech-hashtag.color-0 { background: #e0f2f1; color: #00695c; border-color: #b2dfdb; }
-.tech-hashtag.color-1 { background: #f3e5f5; color: #6a1b9a; border-color: #e1bee7; }
-.tech-hashtag.color-2 { background: #e3f2fd; color: #1565c0; border-color: #bbdefb; }
-.tech-hashtag.color-3 { background: #fff3e0; color: #e65100; border-color: #ffe0b2; }
-.tech-hashtag.color-4 { background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9; }
-.tech-hashtag.color-5 { background: #fce4ec; color: #ad1457; border-color: #f8bbd0; }
-.tech-hashtag.color-6 { background: #ede7f6; color: #4527a0; border-color: #d1c4e9; }
-.tech-hashtag.color-7 { background: #e1f5fe; color: #01579b; border-color: #b3e5fc; }
-.tech-hashtag.color-8 { background: #fffde7; color: #f57f17; border-color: #fff9c4; }
-.tech-hashtag.color-9 { background: #fbe9e7; color: #bf360c; border-color: #ffccbc; }
 
 /* ── Story Highlights ── */
 .social-highlights {
@@ -276,28 +279,37 @@
 .highlight-btn:hover { transform: translateY(-2px); }
 
 .highlight-icon-ring {
-  width: 100px;
-  height: 100px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  border: 2px solid rgba(45, 45, 45, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  padding: 4px;
 }
 
 .highlight-btn:hover .highlight-icon-ring {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transform: scale(1.06);
+  border-color: #a855f7; /* Use purple accent from the rest of UI */
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+  transform: scale(1.05);
 }
 
 .highlight-icon-inner {
-  width: 88px;
-  height: 88px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.highlight-btn:hover .highlight-icon-inner {
+  background: rgba(168, 85, 247, 0.05);
 }
 
 .highlight-btn-label {

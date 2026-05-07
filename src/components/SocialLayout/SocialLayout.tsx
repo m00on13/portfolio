@@ -272,17 +272,17 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
         </div>
 
         {/* ── Tech Stack ── */}
-        <span className="social-section-label">tech stack = hashtags</span>
+        <span className="social-section-label">tech stack</span>
         <div className="social-techstack">
-          {TECH_STACK.map((tag, i) => (
-            <span key={tag} className={`tech-hashtag color-${i % 10}`}>{tag}</span>
+          {TECH_STACK.map((tag) => (
+            <span key={tag} className="tech-hashtag">{tag}</span>
           ))}
         </div>
 
         <hr className="social-divider" />
 
         {/* ── Story Highlights ── */}
-        <span className="social-section-label">story highlights = experience + education</span>
+        <span className="social-section-label">highlights</span>
         <div className="social-highlights">
           {HIGHLIGHTS.map(hl => (
             <button
@@ -291,9 +291,9 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
               onClick={() => setActiveHighlight(hl.id)}
               aria-label={`View ${hl.title} stories`}
             >
-              <div className="highlight-icon-ring" style={{ borderColor: hl.iconColor + '40' }}>
-                <div className="highlight-icon-inner" style={{ background: hl.bgColor }}>
-                  <hl.Icon size={40} color={hl.iconColor} strokeWidth={1.8} />
+              <div className="highlight-icon-ring">
+                <div className="highlight-icon-inner">
+                  <hl.Icon size={32} strokeWidth={1.5} color="var(--text)" />
                 </div>
               </div>
               <span className="highlight-btn-label">{hl.title}</span>
@@ -319,7 +319,6 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
         {/* ── Tab Content ── */}
         {activeTab === 'projects' && (
           <>
-            <div className="social-grid-label">posts = projects (hover to preview)</div>
             <div className="social-grid">
               {GRID_PROJECTS.map(proj => (
                 <div key={proj.id} className="social-grid-card" style={{ background: proj.bgColor }}>
