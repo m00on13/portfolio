@@ -2,6 +2,7 @@ import { useState, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { useTheme } from '../../context/ThemeContext';
 
 // Motion variants for highlight transitions
 const highlightContainerVariants: Variants = {
@@ -135,6 +136,7 @@ const GRID_PROJECTS: GridProject[] = [
 
 /* ─── Main Component ─── */
 export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) => {
+  const { theme } = useTheme();
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<'projects' | 'reels' | 'blogs'>('projects');
@@ -325,7 +327,14 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
           <>
             <div className="social-grid">
               {GRID_PROJECTS.map(proj => (
-                <div key={proj.id} className="social-grid-card" style={{ background: proj.bgColor }}>
+                <div 
+                  key={proj.id} 
+                  className="social-grid-card" 
+                  style={{ 
+                    background: theme === 'dark' ? `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), ${proj.bgColor}` : proj.bgColor,
+                    filter: theme === 'dark' ? 'brightness(0.9) saturate(0.8)' : 'none'
+                  }}
+                >
                   <proj.Icon size={64} className="grid-card-icon" strokeWidth={1.2} />
                   <div className="grid-card-overlay">
                     <span className="grid-card-name">{proj.name}</span>

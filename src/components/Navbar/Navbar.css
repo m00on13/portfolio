@@ -11,10 +11,10 @@
 }
 
 .navbar.scrolled {
-  background: rgba(239, 239, 240, 0.88);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-color: rgba(45, 45, 45, 0.08);
+  border-color: var(--card-border);
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
 }
 
@@ -38,7 +38,7 @@
   transition: opacity 0.2s;
 }
 .navbar-logo:hover { opacity: 0.6; }
-.navbar-logo span { color: #6b6b6b; }
+.navbar-logo span { color: var(--text-muted); }
 
 /* ── Desktop links ── */
 .navbar-links {
@@ -56,7 +56,7 @@
   border-radius: 8px;
   transition: color 0.2s, background 0.2s;
 }
-.navbar-link:hover { color: var(--text); background: rgba(45,45,45,0.05); }
+.navbar-link:hover { color: var(--text); background: var(--card-border); }
 .navbar-link.active { color: var(--text); }
 
 .navbar-resume-btn {
@@ -66,9 +66,9 @@
   text-decoration: none;
   padding: 7px 16px;
   border-radius: 99px;
-  border: 1.5px solid rgba(45, 45, 45, 0.2);
+  border: 1.5px solid var(--card-border);
   margin-left: 8px;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 .navbar-resume-btn:hover {
   background: var(--text);
@@ -134,8 +134,45 @@
   border-top: 1px solid rgba(45,45,45,0.08);
 }
 
+/* ── Theme Toggle ── */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  margin-left: 8px;
+}
+
+.theme-toggle:hover {
+  background: var(--card-border);
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.9);
+}
+
+/* ── Mobile Actions ── */
+.navbar-actions-mobile {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .navbar-links  { display: none; }
+  .navbar-actions-mobile { display: flex; }
   .navbar-hamburger { display: flex; }
+}
+
+[data-theme='dark'] .navbar-mobile-menu {
+  background: rgba(10, 10, 10, 0.97);
+  border-color: rgba(255, 255, 255, 0.08);
 }

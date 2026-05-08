@@ -18,6 +18,13 @@ html {
   --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
   --display: 'Audiowide', sans-serif;
   --code: 'Orbitron', sans-serif;
+  
+  /* Additional UI tokens */
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --nav-bg: rgba(239, 239, 240, 0.8);
+  --accent: #000000;
+  --divider: rgba(0, 0, 0, 0.08);
 
   font-family: var(--sans);
   font-size: 16px;
@@ -29,6 +36,17 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='dark'] {
+  --bg: #0a0a0a;
+  --text: #f0f0f0;
+  --text-muted: #a0a0a0;
+  --card-bg: #1a1a1a;
+  --card-border: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(10, 10, 10, 0.8);
+  --accent: #ffffff;
+  --divider: rgba(255, 255, 255, 0.1);
 }
 
 body {

@@ -95,14 +95,14 @@
 .contact-label-line {
   width: 36px;
   height: 1px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--divider);
 }
 .contact-label-text {
   font-family: var(--code);
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--text-muted);
 }
 
 /* ── 3D Scene ── */
@@ -152,9 +152,9 @@
 .biz-card-face-inner {
   position: absolute;
   inset: 2px;
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: 14px;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid var(--card-border);
   display: flex;
   flex-direction: column;
   padding: 46px;
@@ -257,7 +257,7 @@
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.03em;
-  color: #111;
+  color: var(--text);
   font-family: var(--display); 
 }
 
@@ -273,7 +273,7 @@
   right: 48px;
   top: 50%;
   transform: translateY(-50%);
-  color: #111;
+  color: var(--text);
   opacity: 0.9;
   z-index: 2;
 }
@@ -283,14 +283,21 @@
   height: 220px;
   object-fit: contain;
   border-radius: 8px;
-  mix-blend-mode: multiply; /* Helps it blend if background isn't pure white */
+}
+
+[data-theme='light'] .qr-image {
+  mix-blend-mode: multiply;
+}
+
+[data-theme='dark'] .qr-image {
+  filter: invert(1) brightness(1.2);
 }
 
 .card-front-bottom {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid var(--divider);
   padding-top: 24px;
 }
 
@@ -303,7 +310,7 @@
   font-size: 1.35rem;
   font-weight: 600;
   margin-bottom: 4px;
-  color: #111;
+  color: var(--text);
   letter-spacing: -0.01em;
 }
 .card-role {
@@ -319,17 +326,17 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.04);
+  background: var(--card-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #111;
+  color: var(--text);
   transition: background 0.2s, color 0.2s, transform 0.2s;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid var(--divider);
 }
 .card-social:hover {
-  background: #111;
-  color: #fff;
+  background: var(--text);
+  color: var(--bg);
   transform: translateY(-2px);
 }
 
@@ -353,7 +360,7 @@
 /* ── Back Face ── */
 .biz-card-back {
   transform: rotateY(180deg);
-  color: #111;
+  color: var(--text);
 }
 
 .biz-card-back .card-bg-design {
@@ -381,8 +388,8 @@
 
 .card-flip-back-btn {
   background: none;
-  border: 1px solid rgba(0,0,0,0.1);
-  color: #111;
+  border: 1px solid var(--card-border);
+  color: var(--text);
   width: 52px;
   height: 52px;
   border-radius: 8px;
@@ -394,7 +401,7 @@
   flex-shrink: 0;
 }
 .card-flip-back-btn:hover {
-  background: rgba(0,0,0,0.03);
+  background: var(--card-border);
   transform: translateX(-4px);
 }
 
@@ -416,13 +423,13 @@
 .card-form input,
 .card-form textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--card-bg);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   padding: 14px 18px;
-  color: #111;
+  color: var(--text);
   font-family: var(--sans);
   font-size: 0.95rem;
   transition: border-color 0.2s, background 0.2s;
@@ -443,9 +450,9 @@
 .card-form input:focus,
 .card-form textarea:focus {
   outline: none;
-  border-color: rgba(0,0,0,0.3);
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+  border-color: var(--text-muted);
+  background: var(--card-bg);
+  box-shadow: 0 0 0 4px var(--card-border);
 }
 .card-form textarea {
   resize: none;
@@ -454,8 +461,8 @@
 }
 
 .card-submit-btn {
-  background: #111;
-  color: #fff;
+  background: var(--text);
+  color: var(--bg);
   border: none;
   padding: 16px;
   border-radius: 8px;
@@ -466,9 +473,9 @@
   flex: 1;
 }
 .card-submit-btn:hover {
-  background: #000;
+  background: var(--text-muted);
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px var(--card-border);
 }
 
 .card-submit-btn:disabled,
@@ -531,14 +538,14 @@
 .contact-footer {
   margin-top: 40px;
   padding-top: 24px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--divider);
   width: 100%;
   max-width: 900px;
   text-align: center;
 }
 .contact-footer p {
   font-size: 0.8125rem;
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--text-muted);
 }
 
 /* ── Responsive ── */

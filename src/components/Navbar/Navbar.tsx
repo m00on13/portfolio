@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 import './Navbar.css';
 
 const NAV_LINKS = [
@@ -7,6 +9,7 @@ const NAV_LINKS = [
 ];
 
 export const Navbar = () => {
+  const { theme, toggleTheme } = useTheme();
   const [scrolled,   setScrolled]   = useState(false);
   const [menuOpen,   setMenuOpen]   = useState(false);
   const [activeLink, setActiveLink] = useState('');
@@ -63,14 +66,23 @@ export const Navbar = () => {
              target="_blank" rel="noopener noreferrer">
             Resume ↗
           </a>
+          
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
         </nav>
 
-        <button className={`navbar-hamburger ${menuOpen ? 'open' : ''}`}
-                onClick={() => setMenuOpen(v => !v)}
-                aria-label="Toggle navigation"
-                aria-expanded={menuOpen}>
-          <span /><span /><span />
-        </button>
+        <div className="navbar-actions-mobile">
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
+          <button className={`navbar-hamburger ${menuOpen ? 'open' : ''}`}
+                  onClick={() => setMenuOpen(v => !v)}
+                  aria-label="Toggle navigation"
+                  aria-expanded={menuOpen}>
+            <span /><span /><span />
+          </button>
+        </div>
       </div>
 
       {menuOpen && (

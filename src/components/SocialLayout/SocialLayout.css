@@ -37,8 +37,8 @@
   height: 220px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #fff;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
 }
 
 .social-avatar img {
@@ -132,7 +132,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #00376b;
+  color: #3897f0;
   font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none;
@@ -166,9 +166,9 @@
   cursor: pointer;
   font-family: inherit;
   position: relative;
-  background: #fff;
-  color: #262626;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--card-border);
 }
 
 .desktop-actions {
@@ -222,7 +222,7 @@
 /* ── Section Divider (Desktop style is more subtle) ── */
 .social-divider {
   height: 1px;
-  background: #dbdbdb;
+  background: var(--divider);
   margin: 0;
   border: none;
 }
@@ -263,9 +263,9 @@
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.03);
+  background: var(--card-border);
   color: var(--text);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--divider);
   cursor: default;
   transition: all 0.2s ease;
   letter-spacing: 0.01em;
@@ -316,8 +316,8 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #fff;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
   padding: 4px;
   overflow: hidden;
 }
@@ -364,7 +364,7 @@
 /* ── Tab Bar ── */
 .social-tabs {
   display: flex;
-  border-bottom: 1px solid rgba(45, 45, 45, 0.07);
+  border-bottom: 1px solid var(--divider);
   position: relative;
 }
 
@@ -429,7 +429,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
-  background: rgba(45, 45, 45, 0.06);
+  background: var(--divider);
 }
 
 .social-grid-card {
@@ -444,7 +444,8 @@
 }
 
 .grid-card-icon {
-  color: rgba(45, 45, 45, 0.35);
+  color: var(--text-muted);
+  opacity: 0.4;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 1;
 }
@@ -564,7 +565,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px 16px 12px;
-    background: #fff;
+    background: var(--bg);
   }
 
   .social-mobile-top {
@@ -579,7 +580,7 @@
     height: 77px;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--card-border);
   }
 
   .social-avatar-mobile img {
@@ -614,7 +615,7 @@
   }
 
   .social-tabs {
-    border-top: 1px solid #dbdbdb;
+    border-top: 1px solid var(--divider);
   }
 
   .social-grid {
