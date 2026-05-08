@@ -2,29 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-export interface ProjectStory {
-  id: string;
-  tag: string;
-  name: string;
-  pitch: string;
-  outcome?: string;
-  stack: string[];
-  github?: string;
-  demo?: string;
-  image: string;
-}
+import type { HighlightCategory } from '../../types/portfolio';
 
-export interface HighlightCategory {
-  id: string;
-  title: string;
-  Icon: React.ElementType;
-  coverImage?: string;
-  bgColor: string;
-  iconColor: string;
-  stories: ProjectStory[];
-}
-
-import './ProjectsSection.css';
+import './StoryViewer.css';
 
 interface StoryViewerProps {
   categories: HighlightCategory[];

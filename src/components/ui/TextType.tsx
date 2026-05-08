@@ -68,11 +68,13 @@ const TextType = ({
     return textColors[currentTextIndex % textColors.length];
   };
 
-  useEffect(() => {
+  const [prevStartTyping, setPrevStartTyping] = useState(startTyping);
+  if (startTyping !== prevStartTyping) {
+    setPrevStartTyping(startTyping);
     if (startTyping !== undefined) {
       setIsVisible(startTyping);
     }
-  }, [startTyping]);
+  }
 
   useEffect(() => {
     if (!startOnVisible || !containerRef.current) return;

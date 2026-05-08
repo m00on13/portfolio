@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { 
   Moon, 
   Sun, 
-  User, 
   MessageSquare, 
   FileText, 
   Home,
@@ -89,7 +88,7 @@ export const Navbar = ({ onOpenContact }: { onOpenContact: () => void }) => {
 
       {/* Mobile Bottom Tab Bar */}
       <nav className="mobile-nav">
-        {NAV_LINKS.map(({ label, href, icon: Icon }) => (
+        {NAV_LINKS.map(({ href, icon: Icon }) => (
           <a key={href}
              className={`mobile-nav-link ${activeLink === href.slice(1) ? 'active' : ''}`}
              href={href}
