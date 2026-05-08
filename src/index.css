@@ -64,8 +64,23 @@ body {
   min-height: 100svh;
 }
 
-/* All named sections account for the fixed navbar on jump */
+/* Sidebar layout padding on desktop */
+@media (min-width: 769px) {
+  #root {
+    padding-left: 72px; /* Width of collapsed sidebar */
+  }
+}
+
+/* On mobile, add bottom padding for tab bar */
+@media (max-width: 768px) {
+  #root {
+    padding-bottom: 60px;
+  }
+}
+
+/* Named sections scroll margin */
+#hero,
 #profile,
 #contact {
-  scroll-margin-top: var(--navbar-height);
+  scroll-margin-top: 20px;
 }

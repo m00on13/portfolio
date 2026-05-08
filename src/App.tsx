@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar onOpenContact={() => setIsContactOpen(true)} />
       <SocialLayout onOpenContact={() => setIsContactOpen(true)} />
       {isContactOpen && (
         <ContactSection isModal={true} onClose={() => setIsContactOpen(false)} />

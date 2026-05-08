@@ -1,25 +1,29 @@
-import { useState, useEffect, useRef } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { 
+  Moon, 
+  Sun, 
+  User, 
+  MessageSquare, 
+  FileText, 
+  Home,
+  MoreHorizontal
+} from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Profile',  href: '#profile'  },
-  { label: 'Contact',  href: '#contact'  },
+  { label: 'Home',    href: '#hero',    icon: Home },
+  { label: 'Contact', href: '#contact', icon: MessageSquare },
 ];
 
-export const Navbar = () => {
+export const Navbar = ({ onOpenContact }: { onOpenContact: () => void }) => {
   const { theme, toggleTheme } = useTheme();
-  const [scrolled,   setScrolled]   = useState(false);
-  const [menuOpen,   setMenuOpen]   = useState(false);
-  const [activeLink, setActiveLink] = useState('');
-  const menuRef = useRef<HTMLDivElement>(null);
+  const [activeLink, setActiveLink] = useState('hero');
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-      const ids = ['profile', 'contact'];
-      let current = '';
+      const ids = ['hero', 'profile'];
+      let current = 'hero';
       for (const id of ids) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 120) current = id;
@@ -30,75 +34,73 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
-    };
-    document.addEventListener('mousedown', onClick);
-    return () => document.removeEventListener('mousedown', onClick);
-  }, [menuOpen]);
-
   const goto = (href: string) => {
-    setMenuOpen(false);
+    if (href === '#contact') {
+      onOpenContact();
+      return;
+    }
     const el = document.querySelector(href) as HTMLElement | null;
-    if (el) window.scrollTo({ top: el.offsetTop - 64, behavior: 'smooth' });
+    if (el) {
+      const offset = href === '#hero' ? 0 : el.offsetTop - 64;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
   };
 
   return (
-    <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-inner">
-        <a className="navbar-logo" href="#hero"
-           onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-          Mansi<span>.</span>
-        </a>
+    <>
+      <nav className="sidebar" aria-label="Main navigation">
+        <div className="sidebar-logo-container">
+          <a className="sidebar-logo" href="#hero"
+             onClick={e => { e.preventDefault(); goto('#hero'); }}>
+            <span className="logo-m">M</span>
+            <span className="logo-ansi">ansi.</span>
+          </a>
+        </div>
 
-        <nav className="navbar-links" aria-label="Primary navigation">
-          {NAV_LINKS.map(({ label, href }) => (
+        <div className="sidebar-links">
+          {NAV_LINKS.map(({ label, href, icon: Icon }) => (
             <a key={href}
-               className={`navbar-link ${activeLink === href.slice(1) ? 'active' : ''}`}
+               className={`sidebar-link ${activeLink === href.slice(1) ? 'active' : ''}`}
                href={href}
                onClick={e => { e.preventDefault(); goto(href); }}>
-              {label}
+              <Icon size={24} />
+              <span className="link-label">{label}</span>
             </a>
           ))}
-          <a className="navbar-resume-btn" href="/Mansi_Patel_Resume.pdf"
+          <a className="sidebar-link" href="/Mansi_Patel_Resume.pdf"
              target="_blank" rel="noopener noreferrer">
-            Resume ↗
+            <FileText size={24} />
+            <span className="link-label">Resume</span>
           </a>
+        </div>
+
+        <div className="sidebar-footer">
+          <button className="sidebar-link theme-toggle-btn" onClick={toggleTheme}>
+            {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
+            <span className="link-label">Switch Appearance</span>
+          </button>
           
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-          </button>
-        </nav>
-
-        <div className="navbar-actions-mobile">
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-          </button>
-          <button className={`navbar-hamburger ${menuOpen ? 'open' : ''}`}
-                  onClick={() => setMenuOpen(v => !v)}
-                  aria-label="Toggle navigation"
-                  aria-expanded={menuOpen}>
-            <span /><span /><span />
-          </button>
+          <div className="sidebar-link more-btn">
+            <MoreHorizontal size={24} />
+            <span className="link-label">More</span>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      {menuOpen && (
-        <div className="navbar-mobile-menu" ref={menuRef}>
-          {NAV_LINKS.map(({ label, href }) => (
-            <a key={href} className="navbar-mobile-link" href={href}
-               onClick={e => { e.preventDefault(); goto(href); }}>
-              {label}
-            </a>
-          ))}
-          <a className="navbar-mobile-resume" href="/Mansi_Patel_Resume.pdf"
-             target="_blank" rel="noopener noreferrer">
-            Download Resume ↗
+      {/* Mobile Bottom Tab Bar */}
+      <nav className="mobile-nav">
+        {NAV_LINKS.map(({ label, href, icon: Icon }) => (
+          <a key={href}
+             className={`mobile-nav-link ${activeLink === href.slice(1) ? 'active' : ''}`}
+             href={href}
+             onClick={e => { e.preventDefault(); goto(href); }}>
+            <Icon size={24} />
           </a>
-        </div>
-      )}
-    </header>
+        ))}
+        <button className="mobile-nav-link" onClick={toggleTheme}>
+          {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
+        </button>
+      </nav>
+    </>
   );
 };

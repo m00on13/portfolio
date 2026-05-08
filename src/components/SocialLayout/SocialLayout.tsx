@@ -203,11 +203,11 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
 
         {/* ── Action Buttons ── */}
         <div className="social-actions desktop-actions">
-          <button onClick={onOpenContact} className="social-btn">
+          <button onClick={onOpenContact} className="social-btn social-action-btn primary">
             <MessageSquare size={18} />
             Contact
           </button>
-          <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn">
+          <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn social-action-btn secondary">
             <Download size={18} />
             Resume
           </a>
@@ -252,10 +252,10 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
               </a>
             </div>
 
-            <div className="social-actions">
-              <button onClick={onOpenContact} className="social-btn primary">Contact</button>
-              <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn secondary">Resume</a>
-            </div>
+            <div className="social-mobile-actions">
+            <button onClick={onOpenContact} className="social-btn social-action-btn primary">Contact</button>
+            <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn social-action-btn secondary">Resume</a>
+          </div>
           </div>
         </div>
 
