@@ -1,41 +1,29 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { AnimatePresence } from 'framer-motion';
-import { StoryViewer } from '../Projects/StoryViewer';
-import type { ProjectStory } from '../Projects/StoryViewer';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
+
+// Motion variants for highlight transitions
+const highlightContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  exit: { opacity: 0 },
+};
+
+const highlightItemVariants: Variants = {
+  hidden: { scale: 0.8, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 300 } },
+  exit: { scale: 0.8, opacity: 0 },
+};
+import { StoryViewer, type HighlightCategory } from '../Projects/StoryViewer';
 import mansiProfileImg from '../../assets/profile.png';
-import {
-  GraduationCap, Palette,
-  Grid3X3, Play, BookOpen,
-  Shield, MessageSquareText, BarChart3, FileText,
-  Zap, Monitor, Eye, Table, Layout, Gamepad2,
-  Mail, MessageSquare, Download,
-} from 'lucide-react';
+import { GraduationCap, Palette, Grid3X3, Play, BookOpen, Shield, MessageSquareText, BarChart3, FileText, Zap, Monitor, Eye, Table, Layout, Gamepad2, Mail, MessageSquare, Download } from 'lucide-react';
 import './SocialLayout.css';
 
 // Cover Images for Highlights
 import imgEduCover from '../../assets/education.jfif';
 import imgGithubCover from '../../assets/github.jfif';
 import imgPlaygroundCover from '../../assets/playground.jfif';
-
-// Custom SVG components for brands missing in this lucide-react version
-const GitHub = ({ size = 24 }: { size?: number }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
 
 const Instagram = ({ size = 24 }: { size?: number }) => (
   <svg
@@ -55,6 +43,23 @@ const Instagram = ({ size = 24 }: { size?: number }) => (
   </svg>
 );
 
+const GitHub = ({ size = 24 }: { size?: number }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
 gsap.registerPlugin(ScrollTrigger);
 
 /* ─── Tech Stack ─── */
@@ -69,16 +74,6 @@ const IMG_WORK = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q
 const IMG_EDU = 'https://images.unsplash.com/photo-1523050854058-8df90110c476?q=80&w=2000&auto=format&fit=crop';
 const IMG_AI = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1932&auto=format&fit=crop';
 const IMG_CREATIVE = 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop';
-
-interface HighlightCategory {
-  id: string;
-  title: string;
-  Icon: React.ElementType;
-  coverImage?: string;
-  bgColor: string;
-  iconColor: string;
-  stories: ProjectStory[];
-}
 
 const HIGHLIGHTS: HighlightCategory[] = [
   {
@@ -144,21 +139,13 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<'projects' | 'reels' | 'blogs'>('projects');
   const [activeHighlight, setActiveHighlight] = useState<string | null>(null);
+  const [direction, setDirection] = useState(0); // 1 for next, -1 for prev, 0 for initial/close
 
   useLayoutEffect(() => {
     // Reveal handled by HeroAboutSequence
   }, []);
 
-  const activeHL = HIGHLIGHTS.find(h => h.id === activeHighlight);
   const activeHLIndex = HIGHLIGHTS.findIndex(h => h.id === activeHighlight);
-
-  const handleNextHighlight = () => {
-    if (activeHLIndex < HIGHLIGHTS.length - 1) {
-      setActiveHighlight(HIGHLIGHTS[activeHLIndex + 1].id);
-    } else {
-      setActiveHighlight(null);
-    }
-  };
 
   return (
     <section id="profile" className="social-layout" ref={sectionRef}>
@@ -208,12 +195,11 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
                   <Mail size={20} /> mansi.patel7279s@gmail.com
                 </a>
               </div>
-
             </div>
           </div>
         </div>
 
-        {/* ── Action Buttons (Moved below header for full-width) ── */}
+        {/* ── Action Buttons ── */}
         <div className="social-actions desktop-actions">
           <button onClick={onOpenContact} className="social-btn">
             <MessageSquare size={18} />
@@ -225,7 +211,7 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
           </a>
         </div>
 
-        {/* ── Mobile-only Profile Header (Hidden on Desktop) ── */}
+        {/* ── Mobile-only Profile Header ── */}
         <div className="social-mobile-header">
           <div className="social-mobile-top">
             <div className="social-avatar-mobile">
@@ -283,28 +269,42 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
 
         {/* ── Story Highlights ── */}
         <span className="social-section-label">highlights</span>
-        <div className="social-highlights">
-          {HIGHLIGHTS.map(hl => (
-            <button
-              key={hl.id}
-              className="highlight-btn"
-              onClick={() => setActiveHighlight(hl.id)}
-              aria-label={`View ${hl.title} stories`}
+          {/* Highlights Container with shared layout animation */}
+          <motion.div
+              className="social-highlights"
+              layout
+              variants={highlightContainerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
             >
-              <div className="highlight-icon-ring">
-                <div className="highlight-icon-inner">
-                  {hl.coverImage ? (
-                    <img src={hl.coverImage} alt={hl.title} className="highlight-cover-img" />
-                  ) : (
-                    <hl.Icon size={32} strokeWidth={1.5} color="var(--text)" />
-                  )}
-                </div>
-              </div>
-              <span className="highlight-btn-label">{hl.title}</span>
-            </button>
-          ))}
-        </div>
-
+            {HIGHLIGHTS.map(hl => (
+              <motion.button
+                  key={hl.id}
+                  variants={highlightItemVariants}
+                  layoutId={activeHighlight === hl.id ? 'highlight-active' : undefined}
+                  className={`highlight-btn ${activeHighlight === hl.id ? 'active' : ''}`}
+                  onClick={() => {
+                    setDirection(0);
+                    setActiveHighlight(hl.id);
+                  }}
+                  aria-label={`View ${hl.title} stories`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className="highlight-icon-ring">
+                    <div className="highlight-icon-inner">
+                      {hl.coverImage ? (
+                        <img src={hl.coverImage} alt={hl.title} className="highlight-cover-img" />
+                      ) : (
+                        <hl.Icon size={32} strokeWidth={1.5} color="var(--text)" />
+                      )}
+                    </div>
+                  </div>
+                  <span className="social-btn-label">{hl.title}</span>
+                </motion.button>
+            ))}
+          </motion.div>
         <hr className="social-divider" />
 
         {/* ── Tab Bar ── */}
@@ -363,14 +363,15 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
       </div>
 
       {/* ── Story Viewer Overlay ── */}
-      <AnimatePresence>
-        {activeHL && (
+      <AnimatePresence mode="popLayout" custom={direction}>
+        {activeHighlight && (
           <StoryViewer
-            key={activeHighlight}
-            stories={activeHL.stories}
-            categoryTitle={activeHL.title}
-            onClose={() => setActiveHighlight(null)}
-            onNextCategory={handleNextHighlight}
+            categories={HIGHLIGHTS}
+            initialIndex={activeHLIndex}
+            onClose={() => {
+              setDirection(0);
+              setActiveHighlight(null);
+            }}
           />
         )}
       </AnimatePresence>
