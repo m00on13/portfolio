@@ -242,6 +242,11 @@
   opacity: 0.6;
 }
 
+[data-theme='dark'] .social-section-label {
+  color: var(--text);
+  opacity: 0.8;
+}
+
 .social-section-label::before {
   content: '';
   width: 24px;
@@ -351,14 +356,19 @@
   object-fit: cover;
 }
 
-.highlight-btn-label {
+.social-btn-label {
   font-family: var(--code);
   font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: lowercase;
   color: var(--text);
-  opacity: 0.75;
+  opacity: 0.9;
+}
+
+[data-theme='dark'] .social-btn-label {
+  color: white !important;
+  opacity: 1 !important;
 }
 
 /* ── Tab Bar ── */

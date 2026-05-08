@@ -156,6 +156,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ categories, initialInd
         <div className="story-track-viewport">
           <motion.div 
             className="story-track"
+            initial={{ x: `calc(50vw - ${activeCatIndex * 480 + 225}px)` }}
             animate={{ x: `calc(50vw - ${activeCatIndex * 480 + 225}px)` }}
             transition={{ type: "spring", damping: 30, stiffness: 200 }}
           >
@@ -165,6 +166,10 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ categories, initialInd
                 <motion.div
                   key={cat.id}
                   className={`story-container ${isActive ? 'active' : 'neighbor'}`}
+                  initial={{ 
+                    scale: isActive ? 1 : 0.8,
+                    opacity: isActive ? 1 : 0.4,
+                  }}
                   animate={{ 
                     scale: isActive ? 1 : 0.8,
                     opacity: isActive ? 1 : 0.4,
