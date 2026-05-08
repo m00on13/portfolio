@@ -39,6 +39,9 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ stories, categoryTitle
   
   const currentStory = stories[currentIndex];
 
+  // Safety check to prevent crashes if stories or currentStory are missing
+  if (!stories || stories.length === 0 || !currentStory) return null;
+
   useEffect(() => {
     let animationFrame: number;
     let startTime: number | null = null;
@@ -119,10 +122,10 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ stories, categoryTitle
 
       <motion.div 
         className="story-container"
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        initial={{ scale: 0.8, opacity: 0, y: 40 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        exit={{ scale: 0.5, opacity: 0, y: 100 }}
+        transition={{ type: "spring", damping: 30, stiffness: 350 }}
       >
         {/* Progress Bars */}
         <div className="story-progress-container">

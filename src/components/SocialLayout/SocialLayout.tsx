@@ -4,15 +4,20 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { AnimatePresence } from 'framer-motion';
 import { StoryViewer } from '../Projects/StoryViewer';
 import type { ProjectStory } from '../Projects/StoryViewer';
-import mansiProfileImg from '../../assets/mansi-id.png';
+import mansiProfileImg from '../../assets/profile.png';
 import {
-  Briefcase, GraduationCap, Bot, Palette, FileCode2,
+  GraduationCap, Palette,
   Grid3X3, Play, BookOpen,
   Shield, MessageSquareText, BarChart3, FileText,
   Zap, Monitor, Eye, Table, Layout, Gamepad2,
-  Mail,
+  Mail, MessageSquare, Download,
 } from 'lucide-react';
 import './SocialLayout.css';
+
+// Cover Images for Highlights
+import imgEduCover from '../../assets/education.jfif';
+import imgGithubCover from '../../assets/github.jfif';
+import imgPlaygroundCover from '../../assets/playground.jfif';
 
 // Custom SVG components for brands missing in this lucide-react version
 const GitHub = ({ size = 24 }: { size?: number }) => (
@@ -64,12 +69,12 @@ const IMG_WORK = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q
 const IMG_EDU = 'https://images.unsplash.com/photo-1523050854058-8df90110c476?q=80&w=2000&auto=format&fit=crop';
 const IMG_AI = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1932&auto=format&fit=crop';
 const IMG_CREATIVE = 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop';
-const IMG_FREELANCE = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop';
 
 interface HighlightCategory {
   id: string;
   title: string;
   Icon: React.ElementType;
+  coverImage?: string;
   bgColor: string;
   iconColor: string;
   stories: ProjectStory[];
@@ -77,16 +82,8 @@ interface HighlightCategory {
 
 const HIGHLIGHTS: HighlightCategory[] = [
   {
-    id: 'internship', title: 'internship', Icon: Briefcase,
-    bgColor: '#fff3e0', iconColor: '#e65100',
-    stories: [
-      { id: 'bg', tag: 'AI · Production', name: 'Brand Guardian', pitch: 'Zero-touch client onboarding that provisions cloud folders, DB tables & live n8n workflows in under 60s.', stack: ['Python', 'n8n', 'Supabase', 'RAG', 'FastMCP'], image: IMG_WORK, github: 'https://github.com/m00on13' },
-      { id: 'rag-chat', tag: 'AI · Deployed', name: 'RAG Chatbot — WiT Summit', pitch: 'RAG chatbot serving thousands of attendees across Europe for event queries and schedule navigation.', stack: ['n8n', 'Gemini API', 'Supabase', 'Vector Store'], image: IMG_WORK, github: 'https://github.com/m00on13' },
-      { id: 'movielens', tag: 'Data · Production', name: 'MovieLens Analytics', pitch: 'Full-stack data engineering across 5 platforms and 5 cities with Looker Studio dashboards.', stack: ['Python', 'FastAPI', 'Apify', 'GCP'], image: IMG_WORK },
-    ]
-  },
-  {
     id: 'education', title: 'education', Icon: GraduationCap,
+    coverImage: imgEduCover,
     bgColor: '#e8f5e9', iconColor: '#2e7d32',
     stories: [
       { id: 'degree', tag: 'B.Tech · 2022–2026', name: 'Information Technology', pitch: 'Charotar University of Science and Technology (CHARUSAT), Gujarat · CGPA 7.9', stack: [], image: IMG_EDU },
@@ -95,27 +92,22 @@ const HIGHLIGHTS: HighlightCategory[] = [
     ]
   },
   {
-    id: 'ai-builds', title: 'ai builds', Icon: Bot,
-    bgColor: '#f3e5f5', iconColor: '#7b1fa2',
+    id: 'github', title: 'github', Icon: GitHub,
+    coverImage: imgGithubCover,
+    bgColor: '#f5f5f5', iconColor: '#24292e',
     stories: [
       { id: 'isl', tag: 'AI · Computer Vision', name: 'Real-Time ISL Detection', pitch: 'Web app that recognises Indian Sign Language gestures in real time via webcam with 92% accuracy.', stack: ['React', 'Flask', 'TensorFlow', 'MediaPipe'], image: IMG_AI, github: 'https://github.com/m00on13' },
-      { id: 'revenue', tag: 'AI · Hackathon', name: 'AI Revenue Signal Detector', pitch: 'Cross-sell/upsell intelligence tool ingesting SOWs, transcripts and LinkedIn signals.', stack: ['Gemini', 'Apify', 'Python', 'Slack API'], image: IMG_AI },
+      { id: 'bg', tag: 'AI · Production', name: 'Brand Guardian', pitch: 'Zero-touch client onboarding that provisions cloud folders, DB tables & live n8n workflows in under 60s.', stack: ['Python', 'n8n', 'Supabase', 'RAG', 'FastMCP'], image: IMG_WORK, github: 'https://github.com/m00on13' },
+      { id: 'rag-chat', tag: 'AI · Deployed', name: 'RAG Chatbot — WiT Summit', pitch: 'RAG chatbot serving thousands of attendees across Europe for event queries and schedule navigation.', stack: ['n8n', 'Gemini API', 'Supabase', 'Vector Store'], image: IMG_WORK, github: 'https://github.com/m00on13' },
     ]
   },
   {
-    id: 'creative', title: 'creative', Icon: Palette,
+    id: 'playground', title: 'playground', Icon: Palette,
+    coverImage: imgPlaygroundCover,
     bgColor: '#fffde7', iconColor: '#f57f17',
     stories: [
       { id: 'portfolio', tag: 'Frontend · UX', name: 'Immersive Portfolio', pitch: 'A premium, highly interactive personal portfolio with GSAP animations and 3D effects.', stack: ['React', 'GSAP', 'Framer Motion'], image: IMG_CREATIVE, demo: 'https://mansi-patel.com' },
       { id: 'ecommerce', tag: 'UI/UX Design', name: 'Modern E-commerce UI', pitch: 'A sleek, conversion-optimized Figma concept for a boutique fashion brand.', stack: ['Figma', 'Prototyping', 'Design Systems'], image: IMG_CREATIVE },
-    ]
-  },
-  {
-    id: 'freelance', title: 'freelance', Icon: FileCode2,
-    bgColor: '#e3f2fd', iconColor: '#1565c0',
-    stories: [
-      { id: 'presales', tag: 'Automation', name: 'Pre-Sales Deck Generator', pitch: 'Automated PPT pipeline that compresses 5–6 stage research process into a single trigger.', stack: ['Python', 'Gemini', 'GCP'], image: IMG_FREELANCE },
-      { id: 'college', tag: 'Full-Stack', name: 'College Management Module', pitch: 'React.js app with full CRUD and MySQL integration, used by 500+ users.', stack: ['React', 'Context API', 'MySQL'], image: IMG_FREELANCE },
     ]
   },
 ];
@@ -212,17 +204,25 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
                 <a href="https://instagram.com/_.mansipatell" target="_blank" rel="noopener noreferrer" className="social-link">
                   <Instagram size={20} /> @_.mansipatell
                 </a>
-                <a href="mailto:mansi.patel@example.com" className="social-link">
-                  <Mail size={20} /> mansi.patel@example.com
+                <a href="mailto:mansi.patel7279s@gmail.com" className="social-link">
+                  <Mail size={20} /> mansi.patel7279s@gmail.com
                 </a>
               </div>
 
-              <div className="social-actions">
-                <button onClick={onOpenContact} className="social-btn primary">Contact</button>
-                <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn secondary">Resume</a>
-              </div>
             </div>
           </div>
+        </div>
+
+        {/* ── Action Buttons (Moved below header for full-width) ── */}
+        <div className="social-actions desktop-actions">
+          <button onClick={onOpenContact} className="social-btn">
+            <MessageSquare size={18} />
+            Contact
+          </button>
+          <a href="/Mansi_Patel_Resume.pdf" target="_blank" rel="noopener noreferrer" className="social-btn">
+            <Download size={18} />
+            Resume
+          </a>
         </div>
 
         {/* ── Mobile-only Profile Header (Hidden on Desktop) ── */}
@@ -293,7 +293,11 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
             >
               <div className="highlight-icon-ring">
                 <div className="highlight-icon-inner">
-                  <hl.Icon size={32} strokeWidth={1.5} color="var(--text)" />
+                  {hl.coverImage ? (
+                    <img src={hl.coverImage} alt={hl.title} className="highlight-cover-img" />
+                  ) : (
+                    <hl.Icon size={32} strokeWidth={1.5} color="var(--text)" />
+                  )}
                 </div>
               </div>
               <span className="highlight-btn-label">{hl.title}</span>
@@ -362,6 +366,7 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
       <AnimatePresence>
         {activeHL && (
           <StoryViewer
+            key={activeHighlight}
             stories={activeHL.stories}
             categoryTitle={activeHL.title}
             onClose={() => setActiveHighlight(null)}

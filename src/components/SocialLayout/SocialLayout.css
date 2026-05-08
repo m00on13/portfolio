@@ -150,41 +150,68 @@
 }
 
 .social-btn {
-  padding: 10px 24px;
+  padding: 12px 28px;
   border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: 0.9rem;
   text-decoration: none;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   flex: 1;
-  max-width: 200px;
+  max-width: 250px;
   border: none;
   cursor: pointer;
   font-family: inherit;
+  position: relative;
+  background: #fff;
+  color: #262626;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.social-btn.primary {
-  background: #0095f6;
-  color: #fff;
+.desktop-actions {
+  margin-top: -10px;
+  margin-bottom: 32px;
+  max-width: 100% !important;
 }
 
-.social-btn.primary:hover {
-  background: #1877f2;
-  transform: translateY(-1px);
+.desktop-actions .social-btn {
+  max-width: none;
 }
 
-.social-btn.secondary {
-  background: #efefef;
-  color: var(--text);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+.social-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #fff, #0095f6, #d62976, #962fbf, #fff);
+  background-size: 400% 400%;
+  z-index: -1;
+  border-radius: 10px;
+  animation: btnGradient 8s linear infinite;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
 }
 
-.social-btn.secondary:hover {
-  background: #dbdbdb;
-  transform: translateY(-1px);
+@keyframes btnGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.social-btn:hover::before {
+  opacity: 1;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  background: #1a1a1a;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.social-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* ── Mobile Header (Hidden on Desktop) ── */
@@ -208,7 +235,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-muted);
-  padding: 48px 0 16px;
+  padding: 16px 0 8px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -232,10 +259,10 @@
 }
 
 .tech-hashtag {
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
   background: rgba(0, 0, 0, 0.03);
   color: var(--text);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -253,7 +280,8 @@
 
 /* ── Story Highlights ── */
 .social-highlights {
-  padding: 10px 0 44px;
+  padding: 10px 20px 44px;
+  margin: 0 -20px;
   display: flex;
   gap: 24px;
   overflow-x: auto;
@@ -272,15 +300,17 @@
   cursor: pointer;
   padding: 0;
   outline: none;
-  min-width: 72px;
+  min-width: 100px;
   flex-shrink: 0;
   transition: transform 0.3s ease;
 }
 .highlight-btn:hover { transform: translateY(-2px); }
 
 .highlight-icon-ring {
-  width: 72px;
-  height: 72px;
+  width: 100px;
+  height: 100px;
+  aspect-ratio: 1;
+  flex-shrink: 0;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -289,6 +319,7 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: #fff;
   padding: 4px;
+  overflow: hidden;
 }
 
 .highlight-btn:hover .highlight-icon-ring {
@@ -306,10 +337,18 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.02);
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .highlight-btn:hover .highlight-icon-inner {
   background: rgba(168, 85, 247, 0.05);
+}
+
+.highlight-cover-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .highlight-btn-label {
@@ -612,13 +651,13 @@
   }
 
   .highlight-icon-ring {
-    width: 52px;
-    height: 52px;
+    width: 72px;
+    height: 72px;
   }
 
   .highlight-icon-inner {
-    width: 44px;
-    height: 44px;
+    width: 100%;
+    height: 100%;
   }
 
   .highlight-btn-label {
