@@ -1,73 +1,99 @@
-# React + TypeScript + Vite
+# 🎨 Immersive Social Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62e)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
-Currently, two official plugins are available:
+A premium, highly interactive personal portfolio inspired by modern social media interfaces. This project features high-fidelity 3D animations, a custom "Instagram-style" story highlight system, and a sleek monochromatic design language.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Live Demo:** [mansi-patel.com](https://mansi-patel.com)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Key Features
 
-## Expanding the ESLint configuration
+- **3D Hero Transformation**: A seamless, scroll-triggered 3D flip animation that transforms the main landing card into a circular profile avatar using GSAP and Framer Motion.
+- **Instagram-Style Highlights**: A custom story viewer with:
+  - 3D cube-flip transitions between stories.
+  - Horizontal neighbor previews for an immersive feel.
+  - Progress bars and auto-advance functionality.
+  - Interactive touch and keyboard navigation.
+- **Dynamic Project Grid**: A clean, bento-style grid displaying key projects with category-specific iconography and status indicators.
+- **Premium Aesthetics**: A minimalist, monochromatic design system with subtle micro-animations and a custom splash cursor effect.
+- **Responsive & Performant**: Fully optimized for mobile and desktop, built with performance in mind using Vite and modern React patterns.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Frontend
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Animation & UI
+- **Animations**: [GSAP](https://greensock.com/gsap/) (3D transforms), [Framer Motion](https://www.framer.com/motion/) (Gestures & Layout)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Styling**: Vanilla CSS (Custom tokens & Design System)
+
+### Infrastructure
+- **Deployment**: [Firebase Hosting](https://firebase.google.com/)
+- **Tools**: ESLint, Prettier
+
+---
+
+## 📂 Project Structure
+
+```bash
+src/
+├── assets/             # Static images and media
+├── components/         # Modular UI components
+│   ├── SocialLayout/   # Main interactive hub & Stories
+│   ├── Contact/        # Modal-based contact section
+│   ├── Navbar/         # Navigation components
+│   └── ui/             # Reusable UI primitives
+├── constants/          # Data definitions (Projects, Highlights)
+├── hooks/              # Custom React hooks
+├── types/              # TypeScript interfaces
+└── App.tsx             # Root application entry
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+- Node.js (Latest LTS)
+- npm or yarn
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/m00on13/portfolio.git
+   ```
+2. Navigate to the directory:
+   ```bash
+   cd portfolio
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Development
+Start the local development server:
+```bash
+npm run dev
 ```
+
+### Production
+Build the project for production:
+```bash
+npm run build
+```
+
+---
+
+Developed with ❤️ by [Mansi Patel](https://github.com/m00on13)
