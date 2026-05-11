@@ -1,7 +1,7 @@
 import { GRID_PROJECTS } from '../../../constants/data';
 import { useTheme } from '../../../context/ThemeContext';
 import { GitHub } from '../../ui/Icons';
-import { Play, BookOpen } from 'lucide-react';
+import { Gamepad2, BookOpen } from 'lucide-react';
 import type { TabType } from './SocialTabs';
 
 interface ProjectGridProps {
@@ -44,11 +44,11 @@ export const ProjectGrid = ({ activeTab }: ProjectGridProps) => {
     );
   }
 
-  if (activeTab === 'reels') {
+  if (activeTab === 'games') {
     return (
       <div className="social-empty-tab">
-        <Play size={48} className="social-empty-icon" />
-        <span className="social-empty-text">reels & demos coming soon</span>
+        <Gamepad2 size={48} className="social-empty-icon" />
+        <span className="social-empty-text">games coming soon</span>
       </div>
     );
   }

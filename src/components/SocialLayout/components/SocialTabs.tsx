@@ -1,6 +1,6 @@
-import { Grid3X3, Play, BookOpen } from 'lucide-react';
+import { Grid3X3, Gamepad2, BookOpen } from 'lucide-react';
 
-export type TabType = 'projects' | 'reels' | 'blogs';
+export type TabType = 'projects' | 'games' | 'blogs';
 
 interface SocialTabsProps {
   activeTab: TabType;
@@ -13,8 +13,8 @@ export const SocialTabs = ({ activeTab, setActiveTab }: SocialTabsProps) => {
       <button className={`social-tab ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}>
         <Grid3X3 size={24} /> projects
       </button>
-      <button className={`social-tab ${activeTab === 'reels' ? 'active' : ''}`} onClick={() => setActiveTab('reels')}>
-        <Play size={24} /> reels / demos
+      <button className={`social-tab ${activeTab === 'games' ? 'active' : ''}`} onClick={() => setActiveTab('games')}>
+        <Gamepad2 size={24} /> games
       </button>
       <button className={`social-tab ${activeTab === 'blogs' ? 'active' : ''}`} onClick={() => setActiveTab('blogs')}>
         <BookOpen size={24} /> blogs
