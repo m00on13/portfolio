@@ -1,5 +1,5 @@
 import { motion, type Variants } from 'framer-motion';
-import { HIGHLIGHTS } from '../../../constants/data';
+import type { HighlightCategory } from '../../../types/portfolio';
 
 const highlightContainerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -14,11 +14,12 @@ const highlightItemVariants: Variants = {
 };
 
 interface SocialHighlightsProps {
+  highlights: HighlightCategory[];
   activeHighlight: string | null;
   onHighlightClick: (id: string) => void;
 }
 
-export const SocialHighlights = ({ activeHighlight, onHighlightClick }: SocialHighlightsProps) => {
+export const SocialHighlights = ({ highlights, activeHighlight, onHighlightClick }: SocialHighlightsProps) => {
   return (
     <>
       <span className="social-section-label">highlights</span>
@@ -30,7 +31,7 @@ export const SocialHighlights = ({ activeHighlight, onHighlightClick }: SocialHi
         animate="visible"
         exit="exit"
       >
-        {HIGHLIGHTS.map(hl => (
+        {highlights.map(hl => (
           <motion.button
             key={hl.id}
             variants={highlightItemVariants}

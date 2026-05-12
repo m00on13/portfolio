@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { HIGHLIGHTS } from '../../constants/data';
+import { usePortfolioData } from '../../hooks/usePortfolioData';
 import { StoryViewer } from '../Projects/StoryViewer';
 import { ProfileHeader, MobileProfileHeader } from './components/ProfileHeader';
 import { SocialActions } from './components/SocialActions';
@@ -17,7 +17,9 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
   const [activeTab, setActiveTab] = useState<TabType>('projects');
   const [activeHighlight, setActiveHighlight] = useState<string | null>(null);
 
-  const activeHLIndex = HIGHLIGHTS.findIndex(h => h.id === activeHighlight);
+  const { highlights, projects, games, blogPosts } = usePortfolioData();
+
+  const activeHLIndex = highlights.findIndex(h => h.id === activeHighlight);
 
   return (
     <section id="profile" className="social-layout" ref={sectionRef}>
@@ -26,25 +28,31 @@ export const SocialLayout = ({ onOpenContact }: { onOpenContact: () => void }) =
         <SocialActions onOpenContact={onOpenContact} />
         <MobileProfileHeader onOpenContact={onOpenContact} />
         <SocialTechStack />
-        
+
         <hr className="social-divider" />
-        
-        <SocialHighlights 
-          activeHighlight={activeHighlight} 
-          onHighlightClick={(id) => setActiveHighlight(id)} 
+
+        <SocialHighlights
+          highlights={highlights}
+          activeHighlight={activeHighlight}
+          onHighlightClick={(id) => setActiveHighlight(id)}
         />
-        
+
         <hr className="social-divider" />
-        
+
         <SocialTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-        <ProjectGrid activeTab={activeTab} />
+        <ProjectGrid
+          activeTab={activeTab}
+          projects={projects}
+          games={games}
+          blogPosts={blogPosts}
+        />
       </div>
 
       {/* ── Story Viewer Overlay ── */}
       <AnimatePresence mode="popLayout">
         {activeHighlight && (
           <StoryViewer
-            categories={HIGHLIGHTS}
+            categories={highlights}
             initialIndex={activeHLIndex}
             onClose={() => setActiveHighlight(null)}
           />
