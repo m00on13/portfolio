@@ -5,10 +5,7 @@ import {
 } from 'lucide-react';
 import { GitHub } from '../components/ui/Icons';
 import { supabase } from '../lib/supabase';
-import {
-  HIGHLIGHTS as FALLBACK_HIGHLIGHTS,
-  GRID_PROJECTS as FALLBACK_PROJECTS,
-} from '../constants/data';
+
 import type {
   HighlightCategory, GridProject, GridGame, BlogPost,
   DbHighlightCategory, DbStory, DbProject, DbGame, DbBlogPost,
@@ -118,18 +115,18 @@ export interface PortfolioData {
 }
 
 export function usePortfolioData(): PortfolioData {
-  const [highlights, setHighlights] = useState<HighlightCategory[]>(FALLBACK_HIGHLIGHTS);
-  const [projects, setProjects] = useState<GridProject[]>(FALLBACK_PROJECTS);
+  const [highlights, setHighlights] = useState<HighlightCategory[]>([]);
+  const [projects, setProjects] = useState<GridProject[]>([]);
   const [games, setGames] = useState<GridGame[]>([]);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // No Supabase creds — stay on fallback data
     const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
     const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
     if (!url || !key || url === 'https://your-project-ref.supabase.co') {
+      setError('Supabase credentials missing or invalid.');
       setLoading(false);
       return;
     }
