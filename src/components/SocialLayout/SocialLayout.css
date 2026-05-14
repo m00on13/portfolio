@@ -420,7 +420,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
-  background: var(--divider);
+  background: transparent;
 }
 
 .social-grid-card {
@@ -467,7 +467,7 @@
 }
 
 .grid-card-name {
-  font-family: var(--display);
+  font-family: inherit;
   font-size: 1.1rem;
   color: #fff;
   text-align: center;
@@ -475,22 +475,18 @@
   letter-spacing: 0.02em;
 }
 
-.grid-card-stack {
+.grid-card-hashtags {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
   justify-content: center;
   margin-top: 4px;
 }
 
-.grid-card-pill {
-  font-size: 0.75rem;
+.grid-card-hashtag {
+  font-size: 0.8rem;
   font-weight: 500;
-  padding: 4px 12px;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #0095f6; /* Classic Instagram blue for hashtags */
 }
 
 .grid-card-status {
