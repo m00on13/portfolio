@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MoreHorizontal } from 'lucide-react';
+import { X } from 'lucide-react';
 import { mansiProfileImg } from '../../../constants/data';
 import type { GridProject, GridGame, BlogPost } from '../../../types/portfolio';
 import type { TabType } from './SocialTabs';
@@ -19,7 +19,6 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
   let title = '';
   let description = '';
   let stack: string[] = [];
-  let status = '';
   let primaryLink: { url: string; label: string; icon?: 'external' | 'github' } | null = null;
   let secondaryLink: { url: string; label: string; icon?: 'external' | 'github' } | null = null;
   let FallbackIcon = null;
@@ -29,7 +28,6 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
     const p = post as GridProject;
     title = p.name;
     stack = p.stack;
-    status = p.status;
     FallbackIcon = p.Icon;
     bgColor = p.bgColor;
     if (p.demo) primaryLink = { url: p.demo, label: 'View Live Demo', icon: 'external' };
@@ -43,7 +41,6 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
     title = g.name;
     description = g.description || '';
     stack = g.stack;
-    status = g.status;
     FallbackIcon = g.Icon;
     bgColor = g.bgColor;
     if (g.playUrl) primaryLink = { url: g.playUrl, label: 'Play Game', icon: 'external' };
@@ -54,7 +51,6 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
     title = b.title;
     description = b.excerpt;
     stack = b.tags || [];
-    status = b.platform;
     primaryLink = { url: b.blogUrl, label: 'Read Full Article', icon: 'external' };
   }
 
