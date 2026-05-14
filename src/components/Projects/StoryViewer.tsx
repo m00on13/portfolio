@@ -180,7 +180,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ categories, initialInd
                       <div className="story-header">
                         <div className="story-category-info">
                           <span className="story-category-title">{cat.title}</span>
-                          <span className="story-date">2026</span>
+                          <span className="story-date">{new Date().getFullYear()}</span>
                         </div>
                       </div>
 
@@ -228,7 +228,9 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ categories, initialInd
                     </>
                   ) : (
                     <>
-                      <img src={cat.stories[0].image} alt="" className="story-image" />
+                      {cat.stories[0] && (
+                        <img src={cat.stories[0].image} alt="" className="story-image" />
+                      )}
                       <div className="story-overlay-dim" />
                     </>
                   )}

@@ -1,9 +1,6 @@
 
 // Assets
 import mansiProfileImg from '../assets/profile.png';
-import imgEduCover from '../assets/education.jfif';
-import imgGithubCover from '../assets/github.jfif';
-import imgPlaygroundCover from '../assets/playground.jfif';
 
 export { mansiProfileImg };
 

@@ -2,7 +2,12 @@ import { GitHub, Instagram } from '../../ui/Icons';
 import { Mail } from 'lucide-react';
 import { mansiProfileImg } from '../../../constants/data';
 
-export const ProfileHeader = () => {
+interface ProfileStats {
+  projectCount?: number;
+  blogCount?: number;
+}
+
+export const ProfileHeader = ({ projectCount = 12, blogCount = 0 }: ProfileStats) => {
   return (
     <div className="social-header">
       <div className="social-avatar-wrapper">
@@ -18,11 +23,11 @@ export const ProfileHeader = () => {
 
         <div className="social-stats-desktop">
           <div className="social-stat">
-            <span className="social-stat-value">12</span>
+            <span className="social-stat-value">{projectCount}</span>
             <span className="social-stat-label">projects</span>
           </div>
           <div className="social-stat">
-            <span className="social-stat-value">4</span>
+            <span className="social-stat-value">{blogCount || '—'}</span>
             <span className="social-stat-label">blogs</span>
           </div>
           <div className="social-stat">
@@ -54,7 +59,7 @@ export const ProfileHeader = () => {
   );
 };
 
-export const MobileProfileHeader = ({ onOpenContact }: { onOpenContact: () => void }) => {
+export const MobileProfileHeader = ({ onOpenContact, projectCount = 12, blogCount = 0 }: { onOpenContact: () => void } & ProfileStats) => {
   return (
     <div className="social-mobile-header">
       <div className="social-mobile-top">
@@ -63,11 +68,11 @@ export const MobileProfileHeader = ({ onOpenContact }: { onOpenContact: () => vo
         </div>
         <div className="social-mobile-stats">
           <div className="social-stat">
-            <span className="social-stat-value">12</span>
+            <span className="social-stat-value">{projectCount}</span>
             <span className="social-stat-label">projects</span>
           </div>
           <div className="social-stat">
-            <span className="social-stat-value">4</span>
+            <span className="social-stat-value">{blogCount || '—'}</span>
             <span className="social-stat-label">blogs</span>
           </div>
           <div className="social-stat">
