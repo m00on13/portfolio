@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { mansiProfileImg } from '../../../constants/data';
 import type { GridProject, GridGame, BlogPost } from '../../../types/portfolio';
 import type { TabType } from './SocialTabs';
@@ -14,10 +15,17 @@ export interface PostModalProps {
 }
 
 export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (post) setCurrentIndex(0);
+  }, [post]);
+
   if (!post || !tabType) return null;
 
   // We need to extract the relevant fields based on the tabType
   let image = null;
+  let gallery: string[] = [];
   let title = '';
   let description = '';
   let stack: string[] = [];
@@ -29,6 +37,7 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
   if (tabType === 'projects') {
     const p = post as GridProject;
     image = p.coverImage;
+    gallery = p.gallery || [];
     title = p.name;
     stack = p.stack;
     FallbackIcon = p.Icon;
@@ -41,6 +50,7 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
   } else if (tabType === 'games') {
     const g = post as GridGame;
     image = g.coverImage;
+    gallery = g.gallery || [];
     title = g.name;
     description = g.description || '';
     stack = g.stack;
@@ -51,11 +61,23 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
   } else if (tabType === 'blogs') {
     const b = post as BlogPost;
     image = b.coverImageUrl;
+    gallery = b.gallery || [];
     title = b.title;
     description = b.excerpt;
     stack = b.tags || [];
     primaryLink = { url: b.blogUrl, label: 'Read Full Article', icon: 'external' };
   }
+
+  const mediaList = [image, ...gallery].filter(Boolean) as string[];
+  const currentMedia = mediaList[currentIndex];
+
+  const handleNext = () => {
+    if (currentIndex < mediaList.length - 1) setCurrentIndex(prev => prev + 1);
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
+  };
 
   return (
     <AnimatePresence>
@@ -79,13 +101,46 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
               <X size={20} />
             </button>
 
-            <div className="post-modal-media" style={!image ? { backgroundColor: bgColor } : {}}>
-              {image ? (
-                isVideo(image) ? (
-                  <video src={image} autoPlay loop muted playsInline className="post-modal-image" />
-                ) : (
-                  <img src={image} alt={title} className="post-modal-image" />
-                )
+            <div className="post-modal-media" style={!currentMedia ? { backgroundColor: bgColor } : {}}>
+              {currentMedia ? (
+                <>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentMedia}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >
+                      {isVideo(currentMedia) ? (
+                        <video src={currentMedia} autoPlay loop muted playsInline className="post-modal-image" />
+                      ) : (
+                        <img src={currentMedia} alt={title} className="post-modal-image" />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {mediaList.length > 1 && (
+                    <>
+                      {currentIndex > 0 && (
+                        <button className="post-modal-nav post-modal-nav-left" onClick={handlePrev} aria-label="Previous image">
+                          <ChevronLeft size={24} />
+                        </button>
+                      )}
+                      {currentIndex < mediaList.length - 1 && (
+                        <button className="post-modal-nav post-modal-nav-right" onClick={handleNext} aria-label="Next image">
+                          <ChevronRight size={24} />
+                        </button>
+                      )}
+                      <div className="post-modal-dots">
+                        {mediaList.map((_, idx) => (
+                          <div key={idx} className={`post-modal-dot ${idx === currentIndex ? 'active' : ''}`} />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </>
               ) : FallbackIcon ? (
                 <div className="post-modal-placeholder">
                   <FallbackIcon size={120} strokeWidth={1} style={{ color: 'rgba(0,0,0,0.2)' }} />

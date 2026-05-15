@@ -29,6 +29,7 @@ export interface GridProject {
   name: string;
   Icon: ElementType;
   coverImage?: string;
+  gallery?: string[];
   bgColor: string;
   stack: string[];
   status: string;
@@ -42,6 +43,7 @@ export interface GridGame {
   description?: string;
   Icon: ElementType;
   coverImage?: string;
+  gallery?: string[];
   bgColor: string;
   stack: string[];
   playUrl?: string;
@@ -54,6 +56,7 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   coverImageUrl?: string;
+  gallery?: string[];
   blogUrl: string;
   platform: string;
   tags: string[];
@@ -91,6 +94,7 @@ export interface DbProject {
   name: string;
   icon_name: string;
   cover_image_url: string | null;
+  gallery_urls: string[];
   bg_color: string;
   stack: string[];
   status: string;
@@ -105,6 +109,7 @@ export interface DbGame {
   description: string | null;
   icon_name: string;
   cover_image_url: string | null;
+  gallery_urls: string[];
   bg_color: string;
   stack: string[];
   play_url: string | null;
@@ -118,6 +123,7 @@ export interface DbBlogPost {
   title: string;
   excerpt: string;
   cover_image_url: string | null;
+  gallery_urls: string[];
   blog_url: string;
   platform: string;
   tags: string[];

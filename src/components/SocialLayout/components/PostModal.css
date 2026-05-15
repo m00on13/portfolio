@@ -71,6 +71,62 @@
   height: 100%;
 }
 
+/* Carousel Navigation */
+.post-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.post-modal-nav:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.post-modal-nav-left {
+  left: 16px;
+}
+
+.post-modal-nav-right {
+  right: 16px;
+}
+
+/* Pagination Dots */
+.post-modal-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.post-modal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.2s;
+}
+
+.post-modal-dot.active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
 /* Right side: Sidebar */
 .post-modal-details {
   width: 400px;
