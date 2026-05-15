@@ -143,32 +143,34 @@ VALUES
 
 -- ─── PROJECTS (Grid) ────────────────────────────────────────
 
-INSERT INTO projects (id, name, icon_name, bg_color, stack, status, github_url, sort_order)
+INSERT INTO projects (id, name, icon_name, cover_image_url, gallery_urls, bg_color, stack, status, github_url, sort_order)
 VALUES
-  ('brand-guardian',  'Brand Guardian',     'shield',              '#e8f5e9', '{"Python", "n8n", "RAG", "MCP"}',          'In Production', NULL,                          1),
-  ('rag-chatbot',     'RAG Chatbot',        'message-square-text', '#f3e5f5', '{"n8n", "Gemini", "Supabase"}',            'Deployed',      NULL,                          2),
-  ('movielens',       'MovieLens Analytics', 'bar-chart-3',         '#e3f2fd', '{"Python", "FastAPI", "GCP"}',             'In Production', NULL,                          3),
-  ('presales',        'Deck Generator',     'file-text',           '#fff3e0', '{"Python", "Gemini", "GCP"}',              'Shipped',       NULL,                          4),
-  ('revenue',         'Revenue Detector',   'zap',                 '#fffde7', '{"Gemini", "Apify", "Slack"}',             'Shipped',       NULL,                          5),
-  ('cricket',         'Cricket Analytics',  'monitor',             '#e0f2f1', '{"React", "TypeScript", "YOLO"}',          'Shipped',       NULL,                          6),
-  ('isl',             'ISL Detection',      'eye',                 '#fce4ec', '{"React", "TensorFlow", "MediaPipe"}',     'Shipped',       'https://github.com/m00on13',  7),
-  ('excel',           'Excel Analytics',    'table',               '#ede7f6', '{"React", "Node.js", "MongoDB"}',          'Shipped',       'https://github.com/m00on13',  8),
-  ('portfolio',       'This Portfolio',     'layout',              '#e1f5fe', '{"React", "GSAP", "Framer Motion"}',       'Live',          NULL,                          9),
-  ('ecommerce',       'E-commerce UI',      'palette',             '#fbe9e7', '{"Figma", "Prototyping"}',                 'Concept',       NULL,                          10),
-  ('voxel',           'Mini Voxel Engine',  'gamepad-2',           '#f3e5f5', '{"C++", "OpenGL", "GLSL"}',                'Experiment',    'https://github.com/m00on13',  11),
-  ('college',         'College Module',     'book-open',           '#e8f5e9', '{"React", "MySQL"}',                       'Shipped',       NULL,                          12);
+  ('brand-guardian',  'Brand Guardian',     'shield',              NULL, '{}', '#e8f5e9', '{"Python", "n8n", "RAG", "MCP"}',          'In Production', NULL,                          1),
+  ('rag-chatbot',     'RAG Chatbot',        'message-square-text', NULL, '{}', '#f3e5f5', '{"n8n", "Gemini", "Supabase"}',            'Deployed',      NULL,                          2),
+  ('movielens',       'MovieLens Analytics', 'bar-chart-3',         NULL, '{}', '#e3f2fd', '{"Python", "FastAPI", "GCP"}',             'In Production', NULL,                          3),
+  ('presales',        'Deck Generator',     'file-text',           NULL, '{}', '#fff3e0', '{"Python", "Gemini", "GCP"}',              'Shipped',       NULL,                          4),
+  ('revenue',         'Revenue Detector',   'zap',                 NULL, '{}', '#fffde7', '{"Gemini", "Apify", "Slack"}',             'Shipped',       NULL,                          5),
+  ('cricket',         'Cricket Analytics',  'monitor',             NULL, '{}', '#e0f2f1', '{"React", "TypeScript", "YOLO"}',          'Shipped',       NULL,                          6),
+  ('isl',             'ISL Detection',      'eye',                 NULL, '{}', '#fce4ec', '{"React", "TensorFlow", "MediaPipe"}',     'Shipped',       'https://github.com/m00on13',  7),
+  ('excel',           'Excel Analytics',    'table',               NULL, '{}', '#ede7f6', '{"React", "Node.js", "MongoDB"}',          'Shipped',       'https://github.com/m00on13',  8),
+  ('portfolio',       'This Portfolio',     'layout',              NULL, '{}', '#e1f5fe', '{"React", "GSAP", "Framer Motion"}',       'Live',          NULL,                          9),
+  ('ecommerce',       'E-commerce UI',      'palette',             NULL, '{}', '#fbe9e7', '{"Figma", "Prototyping"}',                 'Concept',       NULL,                          10),
+  ('voxel',           'Mini Voxel Engine',  'gamepad-2',           NULL, '{}', '#f3e5f5', '{"C++", "OpenGL", "GLSL"}',                'Experiment',    'https://github.com/m00on13',  11),
+  ('college',         'College Module',     'book-open',           NULL, '{}', '#e8f5e9', '{"React", "MySQL"}',                       'Shipped',       NULL,                          12);
 
 
 -- ─── GAMES ──────────────────────────────────────────────────
 -- Add your games here as you build them. Example:
 
--- INSERT INTO games (id, name, description, icon_name, bg_color, stack, play_url, github_url, status, sort_order)
+-- INSERT INTO games (id, name, description, icon_name, cover_image_url, gallery_urls, bg_color, stack, play_url, github_url, status, sort_order)
 -- VALUES
 --   (
 --     'connect4',
 --     'Connect 4',
 --     'Classic Connect 4 with AI opponent and multiplayer mode.',
 --     'gamepad-2',
+--     NULL,
+--     '{}',
 --     '#e3f2fd',
 --     '{"Next.js", "TypeScript", "React"}',
 --     'https://connect4.mansi-patel.com',
@@ -181,12 +183,13 @@ VALUES
 -- ─── BLOG POSTS ─────────────────────────────────────────────
 -- Add your blog posts here. Example:
 
--- INSERT INTO blog_posts (title, excerpt, cover_image_url, blog_url, platform, tags, published_at, sort_order)
+-- INSERT INTO blog_posts (title, excerpt, cover_image_url, gallery_urls, blog_url, platform, tags, published_at, sort_order)
 -- VALUES
 --   (
 --     'Building a RAG Chatbot for 10,000 Users',
 --     'How I architected a production RAG chatbot that served thousands of attendees at the WiT Summit across Europe.',
 --     '[STORAGE_TODO]/blogs/rag-chatbot-cover.jpg',
+--     '{}',
 --     'https://medium.com/@yourusername/building-a-rag-chatbot',
 --     'medium',
 --     '{"AI", "RAG", "n8n", "Supabase"}',

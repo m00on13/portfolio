@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS projects (
   id          text PRIMARY KEY,            -- e.g. 'brand-guardian'
   name        text NOT NULL,               -- display name
   icon_name   text NOT NULL,               -- lucide icon name, e.g. 'shield'
+  cover_image_url text,                    -- optional video/image
+  gallery_urls text[] NOT NULL DEFAULT '{}', -- optional carousel images/videos
   bg_color    text NOT NULL DEFAULT '#f5f5f5',
   stack       text[] NOT NULL DEFAULT '{}',
   status      text NOT NULL DEFAULT 'Shipped', -- 'Live', 'Shipped', 'In Production', etc.
@@ -73,6 +75,7 @@ CREATE TABLE IF NOT EXISTS games (
   description   text,                      -- short description
   icon_name     text NOT NULL DEFAULT 'gamepad-2', -- lucide icon name
   cover_image_url text,                    -- thumbnail / preview image
+  gallery_urls  text[] NOT NULL DEFAULT '{}', -- optional carousel images/videos
   bg_color      text NOT NULL DEFAULT '#f3e5f5',
   stack         text[] NOT NULL DEFAULT '{}',
   play_url      text,                      -- link to the playable game
@@ -94,6 +97,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   title           text NOT NULL,
   excerpt         text NOT NULL,           -- short summary for the card
   cover_image_url text,                    -- card thumbnail
+  gallery_urls    text[] NOT NULL DEFAULT '{}', -- optional carousel images/videos
   blog_url        text NOT NULL,           -- link to the full article (Medium, dev.to, etc.)
   platform        text NOT NULL DEFAULT 'medium', -- 'medium', 'devto', 'hashnode', etc.
   tags            text[] NOT NULL DEFAULT '{}',
