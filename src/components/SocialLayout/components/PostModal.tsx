@@ -5,6 +5,8 @@ import type { GridProject, GridGame, BlogPost } from '../../../types/portfolio';
 import type { TabType } from './SocialTabs';
 import './PostModal.css';
 
+const isVideo = (url?: string | null) => url ? /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url) : false;
+
 export interface PostModalProps {
   post: GridProject | GridGame | BlogPost | null;
   tabType: TabType | null;
@@ -26,6 +28,7 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
 
   if (tabType === 'projects') {
     const p = post as GridProject;
+    image = p.coverImage;
     title = p.name;
     stack = p.stack;
     FallbackIcon = p.Icon;
@@ -78,7 +81,11 @@ export const PostModal = ({ post, tabType, onClose }: PostModalProps) => {
 
             <div className="post-modal-media" style={!image ? { backgroundColor: bgColor } : {}}>
               {image ? (
-                <img src={image} alt={title} className="post-modal-image" />
+                isVideo(image) ? (
+                  <video src={image} autoPlay loop muted playsInline className="post-modal-image" />
+                ) : (
+                  <img src={image} alt={title} className="post-modal-image" />
+                )
               ) : FallbackIcon ? (
                 <div className="post-modal-placeholder">
                   <FallbackIcon size={120} strokeWidth={1} style={{ color: 'rgba(0,0,0,0.2)' }} />

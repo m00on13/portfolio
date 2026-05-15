@@ -28,6 +28,7 @@ export interface GridProject {
   id: string;
   name: string;
   Icon: ElementType;
+  coverImage?: string;
   bgColor: string;
   stack: string[];
   status: string;
@@ -89,6 +90,7 @@ export interface DbProject {
   id: string;
   name: string;
   icon_name: string;
+  cover_image_url: string | null;
   bg_color: string;
   stack: string[];
   status: string;

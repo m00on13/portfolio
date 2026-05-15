@@ -6,6 +6,8 @@ import type { TabType } from './SocialTabs';
 import type { GridProject, GridGame, BlogPost } from '../../../types/portfolio';
 import { PostModal } from './PostModal';
 
+const isVideo = (url?: string | null) => url ? /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url) : false;
+
 interface ProjectGridProps {
   activeTab: TabType;
   projects: GridProject[];
@@ -33,7 +35,12 @@ export const ProjectGrid = ({ activeTab, projects, games, blogPosts }: ProjectGr
                 filter: theme === 'dark' ? 'brightness(0.9) saturate(0.8)' : 'none',
               }}
             >
-              <proj.Icon size={64} className="grid-card-icon" strokeWidth={1.2} />
+              {proj.coverImage
+                ? isVideo(proj.coverImage)
+                  ? <video src={proj.coverImage} autoPlay loop muted playsInline className="grid-card-icon" style={{ objectFit: 'cover', width: 64, height: 64, borderRadius: 8 }} />
+                  : <img src={proj.coverImage} alt={proj.name} className="grid-card-icon" style={{ objectFit: 'cover', width: 64, height: 64, borderRadius: 8 }} />
+                : <proj.Icon size={64} className="grid-card-icon" strokeWidth={1.2} />
+              }
               <div className="grid-card-overlay">
                 <span className="grid-card-name">{proj.name}</span>
                 <div className="grid-card-hashtags">
@@ -83,7 +90,9 @@ export const ProjectGrid = ({ activeTab, projects, games, blogPosts }: ProjectGr
               }}
             >
               {game.coverImage
-                ? <img src={game.coverImage} alt={game.name} className="grid-card-icon" style={{ objectFit: 'cover', width: 64, height: 64, borderRadius: 8 }} />
+                ? isVideo(game.coverImage)
+                  ? <video src={game.coverImage} autoPlay loop muted playsInline className="grid-card-icon" style={{ objectFit: 'cover', width: 64, height: 64, borderRadius: 8 }} />
+                  : <img src={game.coverImage} alt={game.name} className="grid-card-icon" style={{ objectFit: 'cover', width: 64, height: 64, borderRadius: 8 }} />
                 : <game.Icon size={64} className="grid-card-icon" strokeWidth={1.2} />
               }
               <div className="grid-card-overlay">

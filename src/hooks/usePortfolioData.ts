@@ -67,6 +67,7 @@ function mapProjects(rows: DbProject[]): GridProject[] {
     id: r.id,
     name: r.name,
     Icon: resolveIcon(r.icon_name),
+    coverImage: r.cover_image_url ?? undefined,
     bgColor: r.bg_color,
     stack: r.stack,
     status: r.status,

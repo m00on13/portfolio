@@ -6,6 +6,8 @@ import type { HighlightCategory } from '../../types/portfolio';
 
 import './StoryViewer.css';
 
+const isVideo = (url?: string | null) => url ? /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url) : false;
+
 interface StoryViewerProps {
   categories: HighlightCategory[];
   initialIndex: number;
@@ -192,17 +194,21 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ categories, initialInd
 
                       {/* Background */}
                       <AnimatePresence mode="wait">
-                        <motion.div
-                          key={currentStoryIndex}
-                          className="story-background"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <img src={stories[currentStoryIndex]?.image} alt="" className="story-image" />
-                          <div className="story-gradient-overlay" />
-                        </motion.div>
+                          <motion.div
+                            key={currentStoryIndex}
+                            className="story-background"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {isVideo(stories[currentStoryIndex]?.image) ? (
+                              <video src={stories[currentStoryIndex]?.image} autoPlay loop muted playsInline className="story-image" />
+                            ) : (
+                              <img src={stories[currentStoryIndex]?.image} alt="" className="story-image" />
+                            )}
+                            <div className="story-gradient-overlay" />
+                          </motion.div>
                       </AnimatePresence>
 
                       {/* Content */}
@@ -229,7 +235,11 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({ categories, initialInd
                   ) : (
                     <>
                       {cat.stories[0] && (
-                        <img src={cat.stories[0].image} alt="" className="story-image" />
+                        isVideo(cat.stories[0].image) ? (
+                          <video src={cat.stories[0].image} autoPlay loop muted playsInline className="story-image" />
+                        ) : (
+                          <img src={cat.stories[0].image} alt="" className="story-image" />
+                        )
                       )}
                       <div className="story-overlay-dim" />
                     </>
